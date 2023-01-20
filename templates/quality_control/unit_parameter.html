@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% block main %}
+<div class="sub-menu">
+    <ul>
+        {% for unit in units%}
+        <li><a href="/unit_parameter/{{unit.id}}">{{unit.unit_desc}}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="add_general_info">
+    <form action="" class="add_unit" method="POST">
+        <p>{{unit.unit_desc}}</p><br>
+        <label for="parameter_desc">Параметр</label>
+        <select type='text' name="parameter_desc" id="parameter_desc">
+            {%for parameter in parameters%}
+            <option value="{{parameter.parameter_desc}}">{{parameter.parameter_desc}}</option>
+            {%endfor%}
+        </select><br>
+        <label for="">Периодичность</label>
+        <select type='text' name="period_desc" id="period_desc">
+            {%for period in periods%}
+            <option value="{{period.period_desc}}">{{period.period_desc}}</option>
+            {%endfor%}
+        </select><br>
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+
+
+{% for period, parameters in unit_parameters.items() %}
+
+<div class="item-list">
+    <p>{{period}}</p>
+    <table>
+        <tr>
+            <th>№</th>
+            <th>Параметр</th>
+            <th></th>
+        </tr>
+        {% for number, parameter in parameters %}
+        <tr>
+            <td>{{number+1}}</td>
+            <td>{{parameter}}</td>
+            <td></td>
+        </tr>
+        {%endfor%}
+    </table>
+
+</div>
+{% endfor%}
+{% endblock %}

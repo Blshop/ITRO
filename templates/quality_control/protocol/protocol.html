@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='protocol.css') }}">
+    <title>Document</title>
+</head>
+
+<body>
+    {% for unit, parameters in data %}
+    {% for period in parameters%}
+    {% if period.period =='Eжедневный'%}
+    {% include "/quality_control/protocol/daily.html" %}
+    {%endif%}
+    {% endfor %}
+    {% endfor %}
+</body>
+<script src="{{url_for('static', filename='protocols.js')}}"></script>
+
+</html>

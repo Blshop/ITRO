@@ -1,0 +1,33 @@
+{% extends "database/general_data.html" %}
+
+{% block data %}
+<div class="general_add_form">
+    <form action="" method="POST">
+        <label for="document_type_desc">Тип документа</label>
+        <input type="text" id='document_type_desc' name="document_type_desc">
+        <input type="submit" name="submit_button" value="Добавить">
+    </form>
+</div>
+<div class="item-list">
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Тип документа</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for number, document_type in document_types %}
+            <tr>
+                <td>{{number+1}}</td>
+                <td>{{document_type.document_type_desc}}</td>
+                <td id={{document_type.id}} onclick="edit(this)"></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+<script src="{{url_for('database_bp.static', filename='document_type.js')}}"></script>
+
+{%endblock%}

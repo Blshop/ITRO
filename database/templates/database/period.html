@@ -1,0 +1,38 @@
+{% extends "database/general_data.html" %}
+
+{% block data %}
+<div class="general_add_form">
+    <form action="" method="POST">
+        <label for="period_desc">Диапазон измерений</label>
+        <input type="text" id='period_desc' name="period_desc">
+        <label for="days_number">Количество дней</label>
+        <input type="number" id='days_number' name="days_number">
+        <input type="submit" name="submit_button" value="Добавить">
+    </form>
+</div>
+<div class="item-list">
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Период</th>
+                <th>Длительность</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for number, period in periods%}
+            <tr>
+                <td>{{number+1}}</td>
+                <td>{{period.period_desc}}</td>
+                <td>{{period.days_number}}</td>
+                <td id={{period.id}} onclick="edit(this)"></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <script src="{{url_for('database_bp.static', filename='period.js')}}"></script>
+</div>
+
+
+{%endblock%}

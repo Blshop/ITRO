@@ -1,0 +1,18 @@
+{% extends "units/unit.html" %}
+
+{% block data %}
+<div class="general_add_form">
+    <form action="" method="POST">
+        <input type="date">
+        <input type="file">
+        <div>
+            <input type="checkbox" id="scales" name="scales" checked>
+            <label for="scales">Scales</label>
+        </div>
+        <label for="deviation_value">Допустимое отклонение</label>
+        <input type="text" id='deviation_value' name="deviation_value">
+        <input type="submit" name="submit_button" value="Добавить">
+    </form>
+</div>
+<script src="{{url_for('units_bp.static', filename='unit_calendar.js')}}"></script>
+{%endblock%}
