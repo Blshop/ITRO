@@ -13,6 +13,9 @@ from functions.model_functions import (
     add_document_type,
     get_document_type,
     edit_document_type,
+    add_source_type,
+    get_source_type,
+    edit_source_type,
     add_parameter,
     get_parameters,
     edit_parameter,
@@ -47,7 +50,7 @@ def unit_type(id=None):
     elif request.method == "GET":
         unit_types = get_unit_type()
         return render_template(
-            "database/unit_type.html",
+            "database/general_info/unit_type.html",
             unit_types=unit_types,
             menu_units=session["units"],
         )
@@ -57,7 +60,7 @@ def unit_type(id=None):
 @database_bp.route("/general_data/period/<int:id>", methods={"POST"})
 def period(id=None):
     if request.method == "POST":
-        if request.form["period_desc"] != "" and request.form["days_number"] != 0:
+        if request.form["period_desc"] != "" and request.form["days_number"] > 0:
             if request.form["submit_button"] == "Исправить":
                 edit_period(
                     request.form["period_desc"], request.form["days_number"], id
@@ -68,7 +71,7 @@ def period(id=None):
     elif request.method == "GET":
         periods = get_period()
         return render_template(
-            "database/period.html",
+            "database/general_info/period.html",
             periods=enumerate(periods),
             menu_units=session["units"],
         )
@@ -86,7 +89,7 @@ def deviation(id=None):
     elif request.method == "GET":
         deviations = get_deviation()
         return render_template(
-            "database/deviation.html",
+            "database/general_info/deviation.html",
             deviations=enumerate(deviations),
             menu_units=session["units"],
         )
@@ -105,7 +108,7 @@ def document_type(id=None):
     elif request.method == "GET":
         document_types = get_document_type()
         return render_template(
-            "database/document_type.html",
+            "database/general_info/document_type.html",
             document_types=enumerate(document_types),
             menu_units=session["units"],
         )
@@ -164,4 +167,50 @@ def unit(id=None):
             menu_units=session["units"],
             units=enumerate(units),
             unit_types=unit_types,
+        )
+
+
+@database_bp.route("general_data/source_type", methods={"GET", "POST"})
+@database_bp.route("general_data/source_type/<int:id>", methods={"POST"})
+def source_type(id=None):
+    if request.method == "POST":
+        if request.form["source_type_desc"] != "":
+            if request.form["submit_button"] == "Исправить":
+                edit_source_type(request.form["source_type_desc"], id)
+            else:
+                add_source_type(request.form["source_type_desc"])
+        return redirect(url_for("database_bp.source_type"))
+    elif request.method == "GET":
+        source_types = get_source_type()
+        return render_template(
+            "database/general_info/source_type.html",
+            source_types=source_types,
+            menu_units=session["units"],
+        )
+
+
+@database_bp.route("/source_energy", methods=["GET", "POST"])
+@database_bp.route("/source_energy/<int:id>", methods={"POST"})
+def source_energy(id=None):
+    if request.method == "POST":
+        if request.form["source_energy_desc"] != "":
+            if request.form["submit_button"] == "Исправить":
+                edit_parameter(
+                    request.form["source_energy_desc"],
+                    request.form["deviation_value"],
+                    id,
+                )
+            else:
+                add_parameter(
+                    request.form["source_energy_desc"], request.form["deviation_value"]
+                )
+        return redirect(url_for("database_bp.source_energy"))
+    else:
+        source_energies = get_parameters()
+        deviations = get_deviation()
+        return render_template(
+            "/database/source_energy.html",
+            source_energies=enumerate(source_energies),
+            deviations=deviations,
+            menu_units=session["units"],
         )

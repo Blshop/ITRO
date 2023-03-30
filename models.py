@@ -2,7 +2,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# Types
+
+# Database
+
+# General Info
+
+
 class Unit_type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     unit_type_desc = db.Column(db.String(20), unique=True, nullable=False)
@@ -28,6 +33,31 @@ class Deviation(db.Model):
     parameters = db.relationship("Parameter", backref="deviation")
 
 
+class Source_type(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    source_type_desc = db.Column(db.String(20), unique=True, nullable=False)
+    units = db.relationship("Unit", backref="source_type")
+    source_energies = db.relationship("Source_energy", backref="source_type")
+
+
+# End General_info
+# Source_unit
+source_unit = db.Table(
+    "source_unit",
+    db.Column("source_energy_id", db.Integer, db.ForeignKey("source_energy.id")),
+    db.Column("unit_id", db.Integer, db.ForeignKey("unit.id")),
+)
+# Source_energy
+class Source_energy(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    source_energy_desc = db.Column(db.String(20))
+    energy = db.Column(db.Integer, db.ForeignKey("deviation.id"), nullable=False)
+    source_type_id = db.Column(
+        db.Integer, db.ForeignKey("source_type.id"), nullable=False
+    )
+    units = db.relationship("Unit", secondary=source_unit, backref="source_energy")
+
+
 class Equipment_type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     equipment_type_desc = db.Column(db.String(20))
@@ -49,9 +79,11 @@ class Unit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     unit_desc = db.Column(db.String(20), unique=True, nullable=False)
     serial_number = db.Column(db.Integer, nullable=False)
-    source_type = db.Column(db.String(20), nullable=False)
     commissioning = db.Column(db.Date, nullable=True)
     unit_type_id = db.Column(db.Integer, db.ForeignKey("unit_type.id"), nullable=False)
+    source_type_id = db.Column(
+        db.Integer, db.ForeignKey("source_type.id"), nullable=False
+    )
     quality_controls = db.relationship("Quality_control", back_populates="units")
 
 

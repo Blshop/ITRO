@@ -1,0 +1,33 @@
+{% extends "database/general_data.html" %}
+
+{% block data %}
+<div class="general_add_form">
+    <form action="" method="POST">
+        <label for="source_type_desc">Тип источника</label>
+        <input type="text" id='source_type_desc' name="source_type_desc">
+        <input type="submit" name="submit_button" value="Добавить">
+    </form>
+</div>
+<div class="item-list">
+    <table>
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Тип источника</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for source_type in source_types %}
+            <tr>
+                <td>{{loop.index}}</td>
+                <td>{{source_type.source_type_desc}}</td>
+                <td id={{source_type.id}} onclick="edit(this)"></td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+<script src="{{url_for('database_bp.static', filename='general_data/source_type.js')}}"></script>
+
+{%endblock%}

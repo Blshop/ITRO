@@ -1,13 +1,15 @@
 from models import (
     db,
-    Unit,
     Unit_type,
-    Equipment_type,
     Period,
     Deviation,
-    Parameter,
-    Quality_control,
     Document_type,
+    Source_type,
+    Parameter,
+    Source_energy,
+    Quality_control,
+    Unit,
+    Equipment_type,
 )
 
 # unit_types functions
@@ -83,6 +85,24 @@ def edit_document_type(new_document_type, id):
     db.session.commit()
 
 
+# source_types functions
+def add_source_type(source_type):
+    new_source_type = Source_type(source_type_desc=source_type)
+    db.session.add(new_source_type)
+    db.session.commit()
+
+
+def get_source_type():
+    source_types = Source_type.query.all()
+    return source_types
+
+
+def edit_source_type(new_source_type, id):
+    source_type = Source_type.query.filter(Source_type.id == id).first()
+    source_type.source_type_desc = new_source_type
+    db.session.commit()
+
+
 # parameter functions
 def add_parameter(parameter_desc, deviation_value):
     deviation = Deviation.query.filter(
@@ -104,6 +124,34 @@ def edit_parameter(parameter_desc, deviation_value, id):
     if parameter.deviation.deviation_value != deviation_value:
         deviation = Deviation.query.filter(
             Deviation.deviation_value == deviation_value
+        ).first()
+        parameter.deviation = deviation
+    db.session.commit()
+
+
+# source_energy functions
+def add_source_energy(source_energy_desc, source_type):
+    source_type = Source_type.query.filter(
+        Source_type.source_type_desc == source_type
+    ).first()
+    new_source_energy = Parameter(
+        source_energy_desc=source_energy_desc, source_type=source_type
+    )
+    db.session.add(new_source_energy)
+    db.session.commit()
+
+
+def get_source_energies():
+    source_energies = Source_energy.query.all()
+    return source_energies
+
+
+def edit_source_energy(parameter_desc, source_type, id):
+    parameter = Source_energy.query.filter(Source_energy.id == id).first()
+    parameter.parameter_desc = parameter_desc
+    if parameter.deviation.deviation_value != source_type:
+        deviation = Source_type.query.filter(
+            Source_type.source_type_desc == source_type
         ).first()
         parameter.deviation = deviation
     db.session.commit()
