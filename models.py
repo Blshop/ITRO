@@ -5,7 +5,50 @@ db = SQLAlchemy()
 
 # Database
 
-# General Info
+# Energies
+
+
+class Deviation(db.Model):
+    deviation_id = db.Column(db.Integer, primary_key=True)
+    deviation_desc = db.Column(db.String(10), unique=True)
+    # parameters = db.relationship("Parameter", backref="deviation")
+
+
+class Source_types(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    source_type_desc = db.Column(db.String(20), unique=True, nullable=False)
+    source_model = db.Column(db.String(10), unique=True, nullable=False)
+
+
+class X_rays(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    voltage = db.Column(db.String(5), unique=True, nullable=False)
+    current = db.Column(db.String(5), unique=True, nullable=False)
+
+
+class Photons(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    photon_desc = db.Column(db.String(5), unique=True, nullable=False)
+
+
+class Electrons(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    electron_desc = db.Column(db.String(5), unique=True, nullable=False)
+
+
+class Isotopes(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    isotope_desc = db.Column(db.String(5), unique=True, nullable=False)
+    half_life = db.Column(db.Numeric, nullable=False)
+
+
+# acessories
+
+
+class acessory_types(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    source_type_desc = db.Column(db.String(20), unique=True, nullable=False)
+    source_model = db.Column(db.String(10), unique=True, nullable=False)
 
 
 class Unit_type(db.Model):
@@ -27,12 +70,6 @@ class Document_type(db.Model):
     documents = db.relationship("Document", backref="document_type")
 
 
-class Deviation(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    deviation_value = db.Column(db.String(20), unique=True)
-    parameters = db.relationship("Parameter", backref="deviation")
-
-
 class Source_type(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     source_type_desc = db.Column(db.String(20), unique=True, nullable=False)
@@ -47,6 +84,8 @@ source_unit = db.Table(
     db.Column("source_energy_id", db.Integer, db.ForeignKey("source_energy.id")),
     db.Column("unit_id", db.Integer, db.ForeignKey("unit.id")),
 )
+
+
 # Source_energy
 class Source_energy(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('settings_bp.static',filename='settings.css') }}">
+{% endblock %}
+{% block main %}
+<div class="content-container">
+    <nav class="settings">
+        <ul>
+            <li><a href="{{url_for('settings_bp.deviations')}}">Отклонения</a></li>
+            <li><a href="{{url_for('settings_bp.parameters')}}">Параметры</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</div>
+
+{%endblock%}

@@ -1,5 +1,10 @@
 from models import (
     db,
+    Source_types,
+    X_rays,
+    Photons,
+    Electrons,
+    Isotopes,
     Unit_type,
     Period,
     Deviation,
@@ -12,7 +17,75 @@ from models import (
     Equipment_type,
 )
 
-# unit_types functions
+
+# deviation functions
+def add_deviation(deviation_value):
+    new_deviation = Deviation(deviation_desc=deviation_value)
+    db.session.add(new_deviation)
+    db.session.commit()
+
+
+def get_deviation():
+    deviations = Deviation.query.all()
+    return deviations
+
+
+def edit_deviation(deviation_value, id):
+    deviation = Deviation.query.filter(Deviation.deviation_id == id).first()
+    deviation.deviation_desc = deviation_value
+    db.session.commit()
+
+
+def get_source_types():
+    source_types = Source_types.query.all()
+    print(source_types)
+    return source_types
+
+
+def add_x_ray(voltage, current):
+    new_x_ray = X_rays(voltage=voltage, current=current)
+    db.session.add(new_x_ray)
+    db.session.commit()
+
+
+def get_x_rays():
+    x_rays = X_rays.query.all()
+    return x_rays
+
+
+def add_photon(photon_desc):
+    new_photon = Photons(photon_desc=photon_desc)
+    db.session.add(new_photon)
+    db.session.commit()
+
+
+def get_photons():
+    photons = Photons.query.all()
+    return photons
+
+
+def add_electron(electron_desc):
+    new_electron = Electrons(electron_desc=electron_desc)
+    db.session.add(new_electron)
+    db.session.commit()
+
+
+def get_electrons():
+    electrons = Electrons.query.all()
+    return electrons
+
+
+def add_isotope(isotope_desc, half_life):
+    new_isotope = Isotopes(isotope_desc=isotope_desc, half_life=half_life)
+    db.session.add(new_isotope)
+    db.session.commit()
+
+
+def get_isotopes():
+    isotopes = Isotopes.query.all()
+    return isotopes
+
+
 def add_unit_type(unit_type):
     new_unit_type = Unit_type(unit_type_desc=unit_type)
     db.session.add(new_unit_type)
@@ -46,24 +119,6 @@ def edit_period(period_desc, days_number, id):
     period = Period.query.filter(Period.id == id).first()
     period.period_desc = period_desc
     period.days_number = days_number
-    db.session.commit()
-
-
-# deviation functions
-def add_deviation(deviation_value):
-    new_deviation = Deviation(deviation_value=deviation_value)
-    db.session.add(new_deviation)
-    db.session.commit()
-
-
-def get_deviation():
-    deviations = Deviation.query.all()
-    return deviations
-
-
-def edit_deviation(deviation_value, id):
-    deviation = Deviation.query.filter(Deviation.id == id).first()
-    deviation.deviation_value = deviation_value
     db.session.commit()
 
 

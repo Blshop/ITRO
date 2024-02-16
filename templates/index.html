@@ -10,6 +10,8 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    {% block style%}
+    {% endblock %}
     <title>Document</title>
 </head>
 
@@ -31,19 +33,7 @@
                     <li>
                         <a href=>Аппараты <i class="fas fa-caret-down"></i></a>
                         <ul>
-                            {% for unit_type, unit in menu_units.items() %}
-                            {% if unit|length == 1 %}
-                            <li><a href="/units/{{unit[0][1]}}">{{unit[0][0]}}</a>
-                                {% else %}
-                            <li><a href="/unit/document">{{unit_type}}</a>
-                                <ul>
-                                    {% for item in unit %}
-                                    <li><a href="item[1]">{{item[0]}}</a></li>
-                                    {% endfor %}
-                                </ul>
-                            </li>
-                            {% endif %}
-                            {% endfor %}
+
                         </ul>
                     </li>
                     <li>
@@ -55,19 +45,14 @@
                         </ul>
                     </li>
                     <li>
-                        <a href=>База данных <i class="fas fa-caret-down"></i></a>
-                        <ul>
-                            <li><a href="/database/general_data">Общие данные</a></li>
-                            <li><a href="/database/parameter">Параметры</a></li>
-                            <li><a href="/database/unit">Аппараты</a></li>
-                            <li><a href="/database/source_energy">Источники/Энергия</a></li>
-                        </ul>
+                        <a href="{{url_for('settings_bp.settings')}}">Настройки</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
     {% block main %}
+
     {% endblock %}
 </body>
 

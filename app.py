@@ -8,7 +8,7 @@ from flask import (
     session,
 )
 
-from database.database import database_bp
+from settings.settings import settings_bp
 from units.units import units_bp
 from models import db
 from model_functions import (
@@ -31,25 +31,25 @@ protocols = {}
 
 app = Flask(__name__)
 
-app.register_blueprint(database_bp, url_prefix="/database")
+app.register_blueprint(settings_bp, url_prefix="/settings")
 app.register_blueprint(units_bp, url_prefix="/units")
 app.secret_key = "secret"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///ITRO.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "postgresql://postgres:postgres@localhost:5432/ITRO"
+)
 db.init_app(app)
 
 
 @app.route("/")
 def index():
-    units = menu()
-    session["units"] = units
-    return render_template("index.html", menu_units=units)
+    return render_template("index.html")
 
 
-# @app.route("/database/general_data")
-# def general_data():
-#     return render_template(
-#         "database/general_data/general_data.html", units=session["units"]
-#     )
+@app.route("/database/general_data")
+def general_data():
+    return render_template(
+        "database/general_data/general_data.html", units=session["units"]
+    )
 
 
 @app.route("/equipment_type", methods={"GET", "POST"})
@@ -149,6 +149,4 @@ def document():
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True, host="0.0.0.0")

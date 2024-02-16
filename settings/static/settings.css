@@ -1,0 +1,82 @@
+.data-container {
+  margin: auto;
+}
+.data-container .item-list {
+  margin-top: 50px;
+  cursor: default;
+  text-align: center;
+}
+.data-container .item-list #form {
+  display: flex;
+  flex-direction: row;
+  display: none;
+}
+.data-container .item-list #add {
+  width: 100px;
+  margin: 15px;
+}
+.data-container .item-list table {
+  min-width: 100px;
+  margin: auto;
+  border-collapse: collapse;
+}
+.data-container .item-list table thead {
+  height: 70px;
+}
+.data-container .item-list table tr {
+  height: 35px;
+}
+.data-container .item-list table tr:hover td {
+  background-color: antiquewhite;
+  color: #009879;
+}
+.data-container .item-list table tr th {
+  padding: 0px 35px;
+  background-color: #009879;
+  color: #ffffff;
+  border: 1px solid black;
+}
+.data-container .item-list table tr td {
+  border: 1px solid black;
+  background-color: white;
+  padding: 0px 35px;
+}
+.data-container .item-list form {
+  margin: auto;
+  width: 200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.data-container .item-list form input {
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+  margin: 5px 0px;
+  border-radius: 5px;
+}
+.data-container .item-list form select {
+  text-align: center;
+}
+.data-container .item-list form input[type=submit] {
+  background-color: aquamarine;
+}
+
+.content-container {
+  display: flex;
+}
+.content-container nav.settings {
+  width: 10%;
+}
+.content-container nav.settings ul li {
+  background-color: black;
+}
+.content-container nav.settings ul li a {
+  display: block;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.content-container main {
+  width: 90%;
+}/*# sourceMappingURL=settings.css.map */

@@ -1,6 +1,15 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
 
 from functions.model_functions import (
+    get_source_types,
+    add_x_ray,
+    get_x_rays,
+    add_photon,
+    get_photons,
+    add_electron,
+    get_electrons,
+    add_isotope,
+    get_isotopes,
     add_unit_type,
     get_unit_type,
     edit_unit_type,
@@ -24,41 +33,45 @@ from functions.model_functions import (
     get_unit,
 )
 
-database_bp = Blueprint(
-    "database_bp",
+settings_bp = Blueprint(
+    "settings_bp",
     __name__,
     template_folder="templates",
     static_folder="static",
 )
 
 
-@database_bp.route("/general_data")
-def general_data():
-    return render_template("database/general_data.html", menu_units=session["units"])
+@settings_bp.route("/", methods={"GET", "POST"})
+def settings():
+    return render_template("settings.html")
 
 
-@database_bp.route("general_data/unit_type", methods={"GET", "POST"})
-@database_bp.route("general_data/unit_type/<int:id>", methods={"POST"})
-def unit_type(id=None):
+@settings_bp.route("energies", methods={"GET", "POST"})
+def energies():
     if request.method == "POST":
-        if request.form["unit_type_desc"] != "":
-            if request.form["submit_button"] == "Исправить":
-                edit_unit_type(request.form["unit_type_desc"], id)
-            else:
-                add_unit_type(request.form["unit_type_desc"])
-        return redirect(url_for("database_bp.unit_type"))
+        form = request.args.get("f")
+        match form:
+            case "x_rays":
+                add_x_ray(request.form["voltage"], request.form["current"])
+            case "photons":
+                add_photon(request.form["photon_desc"])
+            case "electrons":
+                add_electron(request.form["electron_desc"])
+            case "isotopes":
+                add_isotope(request.form["isotope_desc"], request.form["half_life"])
+        return redirect(url_for("equipment_data_bp.energies"))
     elif request.method == "GET":
-        unit_types = get_unit_type()
-        return render_template(
-            "database/general_info/unit_type.html",
-            unit_types=unit_types,
-            menu_units=session["units"],
-        )
+        data = {}
+        data["source_types"] = get_source_types()
+        data["x_rays"] = get_x_rays()
+        data["photons"] = get_photons()
+        data["electrons"] = get_electrons()
+        data["isotopes"] = get_isotopes()
+        return render_template("equipment_data/energies.html", data=data)
 
 
-@database_bp.route("/general_data/period", methods={"GET", "POST"})
-@database_bp.route("/general_data/period/<int:id>", methods={"POST"})
-def period(id=None):
+@settings_bp.route("acessories", methods={"GET", "POST"})
+def acessories():
     if request.method == "POST":
         if request.form["period_desc"] != "" and request.form["days_number"] > 0:
             if request.form["submit_button"] == "Исправить":
@@ -67,19 +80,13 @@ def period(id=None):
                 )
             else:
                 add_period(request.form["period_desc"], request.form["days_number"])
-        return redirect(url_for("database_bp.period"))
+        return redirect(url_for("database_bp.acessories"))
     elif request.method == "GET":
-        periods = get_period()
-        return render_template(
-            "database/general_info/period.html",
-            periods=enumerate(periods),
-            menu_units=session["units"],
-        )
+        return render_template("equipment_data/acessories.html")
 
 
-@database_bp.route("/general_data/deviation", methods={"GET", "POST"})
-@database_bp.route("/general_data/deviation/<int:id>", methods={"POST"})
-def deviation(id=None):
+@settings_bp.route("/deviations", methods={"GET", "POST"})
+def deviations(id=None):
     if request.method == "POST":
         if request.form["submit_button"] == "Исправить":
             edit_deviation(request.form["deviation_value"], id)
@@ -89,14 +96,13 @@ def deviation(id=None):
     elif request.method == "GET":
         deviations = get_deviation()
         return render_template(
-            "database/general_info/deviation.html",
+            "settings/deviation.html",
             deviations=enumerate(deviations),
-            menu_units=session["units"],
         )
 
 
-@database_bp.route("/general_data/document_type", methods={"GET", "POST"})
-@database_bp.route("/general_data/document_type/<int:id>", methods={"POST"})
+@settings_bp.route("/general_data/document_type", methods={"GET", "POST"})
+@settings_bp.route("/general_data/document_type/<int:id>", methods={"POST"})
 def document_type(id=None):
     if request.method == "POST":
         if request.form["document_type_desc"] != "":
@@ -114,9 +120,8 @@ def document_type(id=None):
         )
 
 
-@database_bp.route("/parameter", methods=["GET", "POST"])
-@database_bp.route("/parameter/<int:id>", methods={"POST"})
-def parameter(id=None):
+@settings_bp.route("/parameters", methods=["GET", "POST"])
+def parameters(id=None):
     if request.method == "POST":
         if request.form["parameter_desc"] != "":
             if request.form["submit_button"] == "Исправить":
@@ -139,8 +144,8 @@ def parameter(id=None):
         )
 
 
-@database_bp.route("/unit", methods=["GET", "POST"])
-@database_bp.route("/unit/<int:id>", methods={"POST"})
+@settings_bp.route("/unit", methods=["GET", "POST"])
+@settings_bp.route("/unit/<int:id>", methods={"POST"})
 def unit(id=None):
     if request.method == "POST":
         if request.form["unit_desc"] != "" and request.form["serial_number"] != "":
@@ -170,8 +175,8 @@ def unit(id=None):
         )
 
 
-@database_bp.route("general_data/source_type", methods={"GET", "POST"})
-@database_bp.route("general_data/source_type/<int:id>", methods={"POST"})
+@settings_bp.route("general_data/source_type", methods={"GET", "POST"})
+@settings_bp.route("general_data/source_type/<int:id>", methods={"POST"})
 def source_type(id=None):
     if request.method == "POST":
         if request.form["source_type_desc"] != "":
@@ -189,8 +194,8 @@ def source_type(id=None):
         )
 
 
-@database_bp.route("/source_energy", methods=["GET", "POST"])
-@database_bp.route("/source_energy/<int:id>", methods={"POST"})
+@settings_bp.route("/source_energy", methods=["GET", "POST"])
+@settings_bp.route("/source_energy/<int:id>", methods={"POST"})
 def source_energy(id=None):
     if request.method == "POST":
         if request.form["source_energy_desc"] != "":

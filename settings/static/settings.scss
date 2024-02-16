@@ -1,0 +1,104 @@
+.data-container {
+    margin: auto;
+
+    .item-list {
+        margin-top: 50px;
+        cursor: default;
+        text-align: center;
+
+        #form {
+            display: flex;
+            flex-direction: row;
+            display: none;
+        }
+
+        #add {
+            width: 100px;
+            margin: 15px;
+        }
+
+        table {
+            min-width: 100px;
+            margin: auto;
+            border-collapse: collapse;
+
+            thead {
+                height: 70px;
+            }
+
+            tr {
+                height: 35px;
+
+                &:hover td {
+                    background-color: antiquewhite;
+                    color: #009879;
+                }
+
+                th {
+                    padding: 0px 35px;
+                    background-color: #009879;
+                    color: #ffffff;
+                    border: 1px solid black;
+                }
+
+                td {
+                    border: 1px solid black;
+                    background-color: white;
+                    padding: 0px 35px;
+                }
+            }
+        }
+
+        form {
+            margin: auto;
+            width: 200px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            // padding: 15px;
+
+            input {
+                font-size: 18px;
+                line-height: 30px;
+                text-align: center;
+                margin: 5px 0px;
+                border-radius: 5px;
+            }
+
+            select {
+                text-align: center;
+            }
+
+            input[type=submit] {
+                background-color: aquamarine;
+            }
+        }
+    }
+}
+
+.content-container {
+    display: flex;
+
+
+    nav.settings {
+        width: 10%;
+
+        ul {
+            li {
+
+                background-color: adjust-hue($color: #000000, $degrees: 0);
+
+                a {
+                    display: block;
+                    color: white;
+                    padding: 20px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    main {
+        width: 90%;
+    }
+}

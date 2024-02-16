@@ -1,0 +1,29 @@
+{% extends "settings.html" %}
+{% block content %}
+<div class="data-container">
+    <div class="item-list">
+        <form action="" id="form">
+            <button id="cancel"></button>
+            <input type="text">
+            <input type="submit" value="">
+        </form>
+        <button id="add">добавить</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>№ пп</th>
+                    <th>Тип энергии</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for number,source_type in deviatoions %}
+                <tr>
+                    <td>{{number}}</td>
+                    <td>{{source_type}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
