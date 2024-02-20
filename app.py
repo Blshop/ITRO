@@ -10,20 +10,21 @@ from flask import (
 
 from settings.settings import settings_bp
 from units.units import units_bp
-from models import db
-from model_functions import (
-    get_period,
-    add_deviation,
-    get_deviation,
-    edit_deviation,
-    get_parameters,
-    get_units,
-    get_equipment_type,
-    add_equipment_type,
-    set_quality_control,
-    get_quality_control,
-    get_protocols,
-)
+from models.base_model import db
+
+# from model_functions import (
+#     # get_period,
+#     # add_deviation,
+#     # get_deviation,
+#     # edit_deviation,
+#     # get_parameters,
+#     # get_units,
+#     # get_equipment_type,
+#     # add_equipment_type,
+#     # set_quality_control,
+#     # get_quality_control,
+#     # get_protocols,
+# )
 
 from acc_funct import get_unit, gather_info, menu
 

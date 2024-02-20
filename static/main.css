@@ -91,9 +91,6 @@ body {
   width: 150px;
   display: inline-block;
 }
-.units input {
-  width: 300px;
-}
 .units select {
   width: 300px;
   margin: 15px;

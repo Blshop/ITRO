@@ -1,4 +1,4 @@
-from models import (
+from models.models import (
     db,
     Unit,
     Unit_type,
@@ -6,9 +6,10 @@ from models import (
     Period,
     Deviation,
     Parameter,
-    Quality_control,
+    # Quality_control,
     Document_type,
 )
+
 
 # unit_types functions
 def add_unit_type(unit_type):

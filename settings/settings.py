@@ -16,21 +16,23 @@ from functions.model_functions import (
     add_period,
     get_period,
     edit_period,
-    add_deviation,
-    get_deviation,
-    edit_deviation,
     add_document_type,
     get_document_type,
     edit_document_type,
     add_source_type,
     get_source_type,
     edit_source_type,
-    add_parameter,
-    get_parameters,
-    edit_parameter,
     add_unit,
     edit_unit,
     get_unit,
+)
+from functions.settings import (
+    add_deviation,
+    get_deviation,
+    edit_deviation,
+    add_parameter,
+    get_parameters,
+    edit_parameter,
 )
 
 settings_bp = Blueprint(
@@ -44,6 +46,45 @@ settings_bp = Blueprint(
 @settings_bp.route("/", methods={"GET", "POST"})
 def settings():
     return render_template("settings.html")
+
+
+@settings_bp.route("/deviations", methods={"GET", "POST"})
+def deviation():
+    if request.method == "POST":
+        print(request.data)
+        add_deviation(request.form["deviation_value"])
+        return redirect(url_for(".deviation"))
+    elif request.method == "GET":
+        deviations = get_deviation()
+        print(deviations)
+        return render_template(
+            "settings/deviation.html",
+            deviations=enumerate(deviations),
+        )
+
+
+@settings_bp.route("/parameters", methods=["GET", "POST"])
+def parameter(id=None):
+    if request.method == "POST":
+        if request.form["parameter_desc"] != "":
+            if request.form["submit_button"] == "Исправить":
+                edit_parameter(
+                    request.form["parameter_desc"], request.form["deviation_value"], id
+                )
+            else:
+                add_parameter(
+                    request.form["parameter_desc"], request.form["deviation_value"]
+                )
+        return redirect(url_for("database_bp.parameter"))
+    else:
+        parameters = get_parameters()
+        deviations = get_deviation()
+        return render_template(
+            "/settings/parameter.html",
+            parameters=enumerate(parameters),
+            deviations=deviations,
+            # menu_units=session["units"],
+        )
 
 
 @settings_bp.route("energies", methods={"GET", "POST"})
@@ -85,22 +126,6 @@ def acessories():
         return render_template("equipment_data/acessories.html")
 
 
-@settings_bp.route("/deviations", methods={"GET", "POST"})
-def deviations(id=None):
-    if request.method == "POST":
-        if request.form["submit_button"] == "Исправить":
-            edit_deviation(request.form["deviation_value"], id)
-        else:
-            add_deviation(request.form["deviation_value"])
-        return redirect(url_for("database_bp.deviation"))
-    elif request.method == "GET":
-        deviations = get_deviation()
-        return render_template(
-            "settings/deviation.html",
-            deviations=enumerate(deviations),
-        )
-
-
 @settings_bp.route("/general_data/document_type", methods={"GET", "POST"})
 @settings_bp.route("/general_data/document_type/<int:id>", methods={"POST"})
 def document_type(id=None):
@@ -116,30 +141,6 @@ def document_type(id=None):
         return render_template(
             "database/general_info/document_type.html",
             document_types=enumerate(document_types),
-            menu_units=session["units"],
-        )
-
-
-@settings_bp.route("/parameters", methods=["GET", "POST"])
-def parameters(id=None):
-    if request.method == "POST":
-        if request.form["parameter_desc"] != "":
-            if request.form["submit_button"] == "Исправить":
-                edit_parameter(
-                    request.form["parameter_desc"], request.form["deviation_value"], id
-                )
-            else:
-                add_parameter(
-                    request.form["parameter_desc"], request.form["deviation_value"]
-                )
-        return redirect(url_for("database_bp.parameter"))
-    else:
-        parameters = get_parameters()
-        deviations = get_deviation()
-        return render_template(
-            "/database/parameter.html",
-            parameters=enumerate(parameters),
-            deviations=deviations,
             menu_units=session["units"],
         )
 

@@ -1,36 +1,33 @@
-{% extends "index.html" %}
-{% block main %}
-<div class="general_add_form">
-    <form action="" method="POST">
-        <label for="parameter_desc">Название параметра</label>
-        <input type="text" name="parameter_desc" id="parameter_desc"><br>
-        <label for="deviation_value">Отклонения</label>
-        <select type='text' name="deviation_value" id="deviation_value">
-            {%for deviation in deviations%}
-            <option value="{{deviation.deviation_value}}">{{deviation.deviation_value}}</option>
-            {%endfor%}
-        </select><br>
-        <input type="submit" name="submit_button" value="Добавить">
-    </form>
+{% extends "settings.html" %}
+{% block content %}
+<div class="data-container">
+    <div class="item-list">
+        <form id="add-form" action="{{ url_for('.parameter') }}" method="POST">
+            <button id="cancel" type="button"></button>
+            <input id="input" type="text" name="parameter_desc">
+            <input id="select" type="select" name="deviation_desc">
+            <input type="submit" value="">
+        </form>
+        <button id="add">добавить</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>№ пп</th>
+                    <th>Параметр</th>
+                    <th>Отклонение</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for number,parameter in parameters %}
+                <tr>
+                    <td>{{number}}</td>
+                    <td>{{parameter.parameter_desc}}</td>
+                    <td>{{parameter.deviation.deviation_desc}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
 </div>
-<div class="item-list">
-    <table>
-        <tr>
-            <th>№</th>
-            <th>Параметр</th>
-            <th>Отклонение</th>
-            <th></th>
-        </tr>
-        {%for number, parameter in parameters%}
-        <tr>
-            <td>{{number+1}}</td>
-            <td>{{parameter.parameter_desc}}</td>
-            <td>{{parameter.deviation.deviation_value}}</td>
-            <td id={{parameter.id}} onclick="edit(this)"></td>
-
-        </tr>
-        {%endfor%}
-    </table>
-</div>
-<script src="{{url_for('database_bp.static', filename='parameter.js')}}"></script>
+<script src="{{url_for('settings_bp.static', filename='parameter.js')}}"></script>
 {% endblock %}

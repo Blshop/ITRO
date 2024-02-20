@@ -1,39 +1,19 @@
-from models import (
+from models.models import (
     db,
-    Source_types,
-    X_rays,
-    Photons,
-    Electrons,
-    Isotopes,
-    Unit_type,
-    Period,
-    Deviation,
-    Document_type,
-    Source_type,
-    Parameter,
-    Source_energy,
-    Quality_control,
-    Unit,
-    Equipment_type,
+    # Source_types,
+    # X_rays,
+    # Photons,
+    # Electrons,
+    # Isotopes,
+    # Unit_type,
+    # Period,
+    # Document_type,
+    # Source_type,
+    # Source_energy,
+    # # Quality_control,
+    # Unit,
+    # Equipment_type,
 )
-
-
-# deviation functions
-def add_deviation(deviation_value):
-    new_deviation = Deviation(deviation_desc=deviation_value)
-    db.session.add(new_deviation)
-    db.session.commit()
-
-
-def get_deviation():
-    deviations = Deviation.query.all()
-    return deviations
-
-
-def edit_deviation(deviation_value, id):
-    deviation = Deviation.query.filter(Deviation.deviation_id == id).first()
-    deviation.deviation_desc = deviation_value
-    db.session.commit()
 
 
 def get_source_types():
@@ -155,32 +135,6 @@ def get_source_type():
 def edit_source_type(new_source_type, id):
     source_type = Source_type.query.filter(Source_type.id == id).first()
     source_type.source_type_desc = new_source_type
-    db.session.commit()
-
-
-# parameter functions
-def add_parameter(parameter_desc, deviation_value):
-    deviation = Deviation.query.filter(
-        Deviation.deviation_value == deviation_value
-    ).first()
-    new_parameter = Parameter(parameter_desc=parameter_desc, deviation=deviation)
-    db.session.add(new_parameter)
-    db.session.commit()
-
-
-def get_parameters():
-    parameters = Parameter.query.all()
-    return parameters
-
-
-def edit_parameter(parameter_desc, deviation_value, id):
-    parameter = Parameter.query.filter(Parameter.id == id).first()
-    parameter.parameter_desc = parameter_desc
-    if parameter.deviation.deviation_value != deviation_value:
-        deviation = Deviation.query.filter(
-            Deviation.deviation_value == deviation_value
-        ).first()
-        parameter.deviation = deviation
     db.session.commit()
 
 

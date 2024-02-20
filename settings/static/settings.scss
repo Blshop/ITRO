@@ -2,19 +2,39 @@
     margin: auto;
 
     .item-list {
-        margin-top: 50px;
         cursor: default;
         text-align: center;
 
-        #form {
+        #add-form {
+            margin: auto;
             display: flex;
-            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
             display: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding: 0px;
+
+            #cancel {
+                width: 50px;
+                height: 50px;
+                background-image: url(/settings/static/img/cancel.svg);
+                background-size: cover;
+            }
+
+            input[type="submit"] {
+                width: 50px;
+                height: 50px;
+                background-image: url(/settings/static/img/add.svg);
+                background-size: cover;
+            }
         }
 
         #add {
+            display: inline-block;
             width: 100px;
-            margin: 15px;
+            height: 50px;
+            margin: 20px;
         }
 
         table {
@@ -46,31 +66,19 @@
                     background-color: white;
                     padding: 0px 35px;
                 }
-            }
-        }
 
-        form {
-            margin: auto;
-            width: 200px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            // padding: 15px;
+                &:after {
+                    width: 35px;
+                    height: inherit;
+                    background-color: #009879;
+                    position: absolute;
+                    content: 'sdf';
 
-            input {
-                font-size: 18px;
-                line-height: 30px;
-                text-align: center;
-                margin: 5px 0px;
-                border-radius: 5px;
-            }
+                    &:hover {
+                        visibility: hidden;
+                    }
+                }
 
-            select {
-                text-align: center;
-            }
-
-            input[type=submit] {
-                background-color: aquamarine;
             }
         }
     }

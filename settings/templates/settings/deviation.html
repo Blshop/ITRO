@@ -2,9 +2,9 @@
 {% block content %}
 <div class="data-container">
     <div class="item-list">
-        <form action="" id="form">
-            <button id="cancel"></button>
-            <input type="text">
+        <form id="add-form" action="{{ url_for('.deviation') }}" method="POST">
+            <button id="cancel" type="button"></button>
+            <input type="text" name="deviation_value">
             <input type="submit" value="">
         </form>
         <button id="add">добавить</button>
@@ -12,18 +12,19 @@
             <thead>
                 <tr>
                     <th>№ пп</th>
-                    <th>Тип энергии</th>
+                    <th>Отклонение</th>
                 </tr>
             </thead>
             <tbody>
-                {%for number,source_type in deviatoions %}
+                {%for number,deviation in deviations %}
                 <tr>
                     <td>{{number}}</td>
-                    <td>{{source_type}}</td>
+                    <td>{{deviation.deviation_desc}}</td>
                 </tr>
                 {%endfor%}
             </tbody>
         </table>
     </div>
 </div>
+<script src="{{url_for('settings_bp.static', filename='deviation.js')}}"></script>
 {% endblock %}
