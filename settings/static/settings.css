@@ -41,33 +41,36 @@
 .data-container .item-list table thead {
   height: 70px;
 }
-.data-container .item-list table tr {
-  height: 35px;
-}
-.data-container .item-list table tr:hover td {
-  background-color: antiquewhite;
-  color: #009879;
-}
-.data-container .item-list table tr th {
+.data-container .item-list table thead th {
   padding: 0px 35px;
   background-color: #009879;
   color: #ffffff;
   border: 1px solid black;
 }
-.data-container .item-list table tr td {
+.data-container .item-list table tbody tr {
+  height: 35px;
+}
+.data-container .item-list table tbody tr:hover td {
+  background-color: antiquewhite;
+  color: #009879;
+}
+.data-container .item-list table tbody tr td {
   border: 1px solid black;
   background-color: white;
   padding: 0px 35px;
 }
-.data-container .item-list table tr:after {
+.data-container .item-list table tbody tr::after {
   width: 35px;
   height: inherit;
-  background-color: #009879;
   position: absolute;
-  content: "sdf";
-}
-.data-container .item-list table tr:after:hover {
+  content: "";
   visibility: hidden;
+  background-image: url(/settings/static/img/edit.svg);
+  background-size: cover;
+  background-color: inherit;
+}
+.data-container .item-list table tbody tr:hover:after {
+  visibility: visible;
 }
 
 .content-container {

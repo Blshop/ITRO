@@ -17,8 +17,8 @@
             </thead>
             <tbody>
                 {%for number,deviation in deviations %}
-                <tr>
-                    <td>{{number}}</td>
+                <tr class="data" id="{{deviation.deviation_id}}">
+                    <td>{{number+1}}</td>
                     <td>{{deviation.deviation_desc}}</td>
                 </tr>
                 {%endfor%}

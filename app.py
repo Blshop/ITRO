@@ -7,7 +7,6 @@ from flask import (
     jsonify,
     session,
 )
-
 from settings.settings import settings_bp
 from units.units import units_bp
 from models.base_model import db
@@ -23,7 +22,7 @@ from models.base_model import db
 #     # add_equipment_type,
 #     # set_quality_control,
 #     # get_quality_control,
-#     # get_protocols,
+#     # get_protocols,pip install flaskpip install 
 # )
 
 from acc_funct import get_unit, gather_info, menu
