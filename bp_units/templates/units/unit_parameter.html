@@ -1,0 +1,49 @@
+{% extends "unit.html" %}
+{% block content %}
+
+<div class="modal" id="modal">
+    <form id="add-form" action="{{ url_for('.unit_parameter') }}" method="POST">
+        <input type="hidden" name="id">
+        <div class="input_box">
+            <label for="parameter_desc">Наименование</label>
+            <select name="parameter_desc" id="select">
+                {% for paremeter in parameters %}
+                <option value="{{parameter.parameter_desc}}">{{parameter.parameter_desc}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input_box">
+            <label for="unit_sn">Серийный номер</label>
+            <input type="text" name="unit_sn">
+        </div>
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+<div id="overlay"></div>
+
+<div class="data-container">
+    <div class="item-list">
+        <button data-modal-target="#modal" id="add">добавить</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>№ пп</th>
+                    <th>Наименование</th>
+                    <th>Серийный номер</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for number,unit in units %}
+                <tr class="data" id="{{unit.unit_id}}">
+                    <td>{{number+1}}</td>
+                    <td>{{unit.unit_desc}}</td>
+                    <td>{{unit.unit_sn}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="{{url_for('static', filename='main.js')}}"></script>
+<script src="{{url_for('settings_bp.static', filename='period.js')}}"></script>
+{% endblock %}

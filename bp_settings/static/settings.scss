@@ -5,31 +5,6 @@
         cursor: default;
         text-align: center;
 
-        #add-form {
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            display: none;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            padding: 0px;
-
-            #cancel {
-                width: 50px;
-                height: 50px;
-                background-image: url(/settings/static/img/cancel.svg);
-                background-size: cover;
-            }
-
-            input[type="submit"] {
-                width: 50px;
-                height: 50px;
-                background-image: url(/settings/static/img/add.svg);
-                background-size: cover;
-            }
-        }
-
         #add {
             display: inline-block;
             width: 100px;

@@ -22,17 +22,20 @@ from functions.model_functions import (
     add_source_type,
     get_source_type,
     edit_source_type,
-    add_unit,
-    edit_unit,
-    get_unit,
 )
 from functions.settings import (
     add_deviation,
-    get_deviation,
-    edit_deviation,
+    get_deviations,
+    update_deviation,
     add_parameter,
     get_parameters,
-    edit_parameter,
+    update_parameter,
+    add_period,
+    get_periods,
+    update_period,
+    add_unit,
+    get_units,
+    update_unit,
 )
 
 settings_bp = Blueprint(
@@ -51,12 +54,13 @@ def settings():
 @settings_bp.route("/deviations", methods={"GET", "POST"})
 def deviation():
     if request.method == "POST":
-        print(request.data)
-        add_deviation(request.form["deviation_value"])
+        if request.form['id'] is "":
+            add_deviation(request.form["deviation_desc"])
+        else:
+            update_deviation(request.form["deviation_desc"], int(request.form['id']))
         return redirect(url_for(".deviation"))
     elif request.method == "GET":
-        deviations = get_deviation()
-        print(deviations)
+        deviations = get_deviations()
         return render_template(
             "settings/deviation.html",
             deviations=enumerate(deviations),
@@ -66,24 +70,49 @@ def deviation():
 @settings_bp.route("/parameters", methods=["GET", "POST"])
 def parameter(id=None):
     if request.method == "POST":
-        if request.form["parameter_desc"] != "":
-            if request.form["submit_button"] == "Исправить":
-                edit_parameter(
-                    request.form["parameter_desc"], request.form["deviation_value"], id
-                )
-            else:
-                add_parameter(
-                    request.form["parameter_desc"], request.form["deviation_value"]
-                )
-        return redirect(url_for("database_bp.parameter"))
+        if request.form["id"] is "":
+            add_parameter(request.form["parameter_desc"], request.form['deviation_desc'])
+        else:
+            update_parameter(request.form["parameter_desc"], request.form['deviation_desc'],int(request.form['id']))
+        return redirect(url_for(".parameter"))
     else:
         parameters = get_parameters()
-        deviations = get_deviation()
+        deviations = get_deviations()
         return render_template(
             "/settings/parameter.html",
             parameters=enumerate(parameters),
             deviations=deviations,
-            # menu_units=session["units"],
+        )
+
+@settings_bp.route("/periods", methods={"GET", "POST"})
+def period():
+    if request.method == "POST":
+        if request.form['id'] is "":
+            add_period(request.form["period_desc"], request.form["period_duration"])
+        else:
+            update_period(request.form["deviation_desc"], request.form["period_duration"], int(request.form['id']))
+        return redirect(url_for(".period"))
+    elif request.method == "GET":
+        periods = get_periods()
+        return render_template(
+            "settings/period.html",
+            periods=enumerate(periods),
+        )
+    
+
+@settings_bp.route("/units", methods={"GET", "POST"})
+def unit():
+    if request.method == "POST":
+        if request.form['id'] is "":
+            add_unit(request.form["unit_desc"], request.form["unit_sn"])
+        else:
+            update_unit(request.form["dunit_desc"], request.form["unit_sn"], int(request.form['id']))
+        return redirect(url_for(".unit"))
+    elif request.method == "GET":
+        units = get_units()
+        return render_template(
+            "settings/unit.html",
+            units=enumerate(units),
         )
 
 
@@ -142,37 +171,6 @@ def document_type(id=None):
             "database/general_info/document_type.html",
             document_types=enumerate(document_types),
             menu_units=session["units"],
-        )
-
-
-@settings_bp.route("/unit", methods=["GET", "POST"])
-@settings_bp.route("/unit/<int:id>", methods={"POST"})
-def unit(id=None):
-    if request.method == "POST":
-        if request.form["unit_desc"] != "" and request.form["serial_number"] != "":
-            if request.form["submit_button"] == "Исправить":
-                edit_unit(
-                    request.form["unit_desc"],
-                    request.form["serial_number"],
-                    request.form["unit_type_desc"],
-                    id,
-                )
-            else:
-                add_unit(
-                    request.form["unit_desc"],
-                    request.form["serial_number"],
-                    request.form["unit_type_desc"],
-                )
-        return redirect(url_for("database_bp.unit"))
-    elif request.method == "GET":
-        unit_types = get_unit_type()
-        units = get_unit()
-        print(units)
-        return render_template(
-            "database/unit.html",
-            menu_units=session["units"],
-            units=enumerate(units),
-            unit_types=unit_types,
         )
 
 

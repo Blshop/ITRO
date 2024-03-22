@@ -7,24 +7,10 @@ from flask import (
     jsonify,
     session,
 )
-from settings.settings import settings_bp
-from units.units import units_bp
+from bp_settings.settings import settings_bp
+from bp_units.units import units_bp
 from models.base_model import db
-
-# from model_functions import (
-#     # get_period,
-#     # add_deviation,
-#     # get_deviation,
-#     # edit_deviation,
-#     # get_parameters,
-#     # get_units,
-#     # get_equipment_type,
-#     # add_equipment_type,
-#     # set_quality_control,
-#     # get_quality_control,
-#     # get_protocols,pip install flaskpip install 
-# )
-
+from functions.settings import get_units
 from acc_funct import get_unit, gather_info, menu
 
 protocols = {}
@@ -42,6 +28,9 @@ db.init_app(app)
 
 @app.route("/")
 def index():
+    units = get_units()
+    session['units'] = [unit.unit_desc+' SN '+str(unit.unit_sn) for unit in units]
+    print(session['units'])
     return render_template("index.html")
 
 

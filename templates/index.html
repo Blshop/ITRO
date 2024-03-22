@@ -33,7 +33,9 @@
                     <li>
                         <a href=>Аппараты <i class="fas fa-caret-down"></i></a>
                         <ul>
-
+                            {% for unit in session['units'] %}
+                            <li><a href="{{url_for('units_bp.unit', variable=unit)}}">{{unit}}</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                     <li>
