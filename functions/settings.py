@@ -1,5 +1,5 @@
 from models.base_model import db
-from models.settings import Deviation, Parameter, Period, Unit, Unit_Parameter
+from models.settings import Deviation, Parameter, Period, Unit, Unit_parameter, Unit_type
 
 
 def add_deviation(deviation_desc):
@@ -36,7 +36,7 @@ def add_parameter(parameter_desc, deviation_desc):
 def get_parameter(parameter_desc, deviation_desc):
     parameter = Parameter.query.filter(
         Parameter.parameter_desc == parameter_desc,
-        Parameter.fk_deviation.deviation_desc == deviation_desc,
+        Deviation.deviation_desc == deviation_desc,
     ).first()
     return parameter
 
@@ -77,8 +77,9 @@ def update_period(new_period_desc, new_period_duration, id):
     db.session.commit()
 
 
-def add_unit(unit_desc, unit_sn):
-    new_unit = Unit(unit_desc=unit_desc, unit_sn=unit_sn)
+def add_unit(unit_desc, unit_sn, unit_type_desc):
+    unit_type = get_unit_type(unit_type_desc)
+    new_unit = Unit(unit_desc=unit_desc, unit_sn=unit_sn, unit_type=unit_type)
     db.session.add(new_unit)
     db.session.commit()
 
@@ -96,4 +97,26 @@ def update_unit(new_unit_desc, new_unit_sn, id):
     unit = Unit.query.filter(Unit.unit_id == id).first()
     unit.unit_desc = new_unit_desc
     unit.unit_sn = new_unit_sn
+    db.session.commit()
+
+
+def add_unit_type(unit_type_desc):
+    new_unit_type = Unit_type(unit_type_desc=unit_type_desc)
+    db.session.add(new_unit_type)
+    db.session.commit()
+
+
+def get_unit_type(unit_type_desc):
+    unit_type = Unit_type.query.filter(Unit_type.unit_type_desc == unit_type_desc).first()
+    return unit_type
+
+
+def get_unit_types():
+    unit_types = Unit_type.query.all()
+    return unit_types
+
+
+def update_unit_type(new_unit_type, id):
+    unit_type = Unit_type.query.filter(Unit_type.unit_type_id == id).first()
+    unit_type.unit_type_id = new_unit_type
     db.session.commit()

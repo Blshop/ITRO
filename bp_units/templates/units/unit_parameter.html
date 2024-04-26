@@ -7,14 +7,19 @@
         <div class="input_box">
             <label for="parameter_desc">Наименование</label>
             <select name="parameter_desc" id="select">
-                {% for paremeter in parameters %}
-                <option value="{{parameter.parameter_desc}}">{{parameter.parameter_desc}}</option>
+                {% for parameter in parameters %}
+                <option value="{{parameter.parameter_desc+'*'+parameter.deviation.deviation_desc}}">
+                    {{parameter.parameter_desc}}</option>
                 {% endfor %}
             </select>
         </div>
         <div class="input_box">
-            <label for="unit_sn">Серийный номер</label>
-            <input type="text" name="unit_sn">
+            <label for="period_desc">Наименование</label>
+            <select name="period_desc" id="select">
+                {% for period in periods %}
+                <option value="{{period.period_desc}}">{{period.period_desc}}</option>
+                {% endfor %}
+            </select>
         </div>
         <input type="submit" value="Добавить">
     </form>
@@ -23,7 +28,11 @@
 
 <div class="data-container">
     <div class="item-list">
+        {{session['current_unit']}}
         <button data-modal-target="#modal" id="add">добавить</button>
+        {% for period, parameters in result.items() %}
+        {% if parameters%}
+        <p>{{period}}</p>
         <table>
             <thead>
                 <tr>
@@ -33,15 +42,18 @@
                 </tr>
             </thead>
             <tbody>
-                {%for number,unit in units %}
-                <tr class="data" id="{{unit.unit_id}}">
-                    <td>{{number+1}}</td>
-                    <td>{{unit.unit_desc}}</td>
-                    <td>{{unit.unit_sn}}</td>
+                {%for parameter in parameters %}
+                <tr class="data" id="">
+                    <td>{{1}}</td>
+                    <td>{{parameter.parameter.parameter_desc}}</td>
+                    <td>{{parameter.parameter.deviation.deviation_desc}}</td>
                 </tr>
                 {%endfor%}
             </tbody>
         </table>
+        {% endif %}
+        {% endfor %}
+        <a href="{{ url_for('.print_parameters') }}">Распечатать</a>
     </div>
 </div>
 <script src="{{url_for('static', filename='main.js')}}"></script>

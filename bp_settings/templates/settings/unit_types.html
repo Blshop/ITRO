@@ -1,0 +1,41 @@
+{% extends "settings.html" %}
+{% block content %}
+
+<div class="modal" id="modal">
+    <form id="add-form" action="{{ url_for('.unit_type') }}" method="POST">
+        <input type="hidden" name="id">
+        <div class="input_box">
+            <label for="unit_type_desc">Тип аппарата</label>
+            <input type="text" name="unit_type_desc">
+        </div>
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+<div id="overlay"></div>
+
+<div class="data-container">
+    <div class="item-list">
+        <button data-modal-target="#modal" id="add">добавить</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>№ пп</th>
+                    <th>Тип аппарата</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for number,unit_type in unit_types %}
+                <tr class="data" id="{{unit_type.unit_type_id}}">
+                    <td>{{number+1}}</td>
+                    <td>{{unit_type.unit_type_desc}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="{{url_for('static', filename='main.js')}}"></script>
+<script src="{{url_for('settings_bp.static', filename='unit_type.js')}}"></script>
+
+{% endblock %}
