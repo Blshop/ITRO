@@ -4,7 +4,7 @@
 {% endblock %}
 {% block main %}
 <div class="content-container">
-    <nav class="settings">
+    <nav class="side-menu">
         <ul>
             <li><a href="{{url_for('settings_bp.deviation')}}">Отклонения</a></li>
             <li><a href="{{url_for('settings_bp.parameter')}}">Параметры</a></li>
@@ -13,6 +13,9 @@
             <li><a href="{{url_for('settings_bp.unit')}}">Аппараты</a></li>
         </ul>
     </nav>
+    <div class="controls">
+        <button data-modal-target="#modal" id="add">добавить</button>
+    </div>
     <main>
         {% block content %}
         {% endblock %}

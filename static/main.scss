@@ -56,6 +56,7 @@ header {
                 }
 
                 ul {
+                    z-index: 1;
                     position: absolute;
                     top: 100%;
                     border-top: 3px solid #23dbdb;
@@ -111,23 +112,20 @@ header {
     }
 }
 
-nav.settings {
-    position: relative;
+.side-menu {
+    position: absolute;
     top: 0;
     left: 0;
 
     ul {
         background-color: v.$menu;
-        display: inline-block;
-        padding-inline-start: 0px;
         padding-top: 50px;
 
         li {
-            padding: 20px;
-
             a {
-                color: white;
                 text-align: center;
+                display: block;
+                padding: 20px;
             }
         }
     }

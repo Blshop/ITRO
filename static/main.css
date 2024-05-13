@@ -30,7 +30,7 @@ ul {
 .modal {
   padding: 50px;
   position: fixed;
-  top: 50%;
+  top: 25%;
   left: 50%;
   transform: translate(-50%, -50%) scale(0);
   transition: 200ms ease-in-out;
@@ -183,6 +183,7 @@ header .main-menu ul li a {
   background: #074561;
 }
 header .main-menu ul li ul {
+  z-index: 1;
   position: absolute;
   top: 100%;
   border-top: 3px solid #23dbdb;
@@ -228,21 +229,17 @@ header .main-menu ul li:hover > ul {
   color: #23dbdb;
 }
 
-nav.settings {
-  position: relative;
+.side-menu {
+  position: absolute;
   top: 0;
   left: 0;
 }
-nav.settings ul {
+.side-menu ul {
   background-color: #074561;
-  display: inline-block;
-  padding-inline-start: 0px;
   padding-top: 50px;
 }
-nav.settings ul li {
-  padding: 20px;
-}
-nav.settings ul li a {
-  color: white;
+.side-menu ul li a {
   text-align: center;
+  display: block;
+  padding: 20px;
 }/*# sourceMappingURL=main.css.map */
