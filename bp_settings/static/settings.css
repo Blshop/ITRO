@@ -6,7 +6,9 @@
   text-align: center;
 }
 .data-container .item-list #add {
-  display: inline-block;
+  position: relative;
+  top: 0;
+  left: 0;
   width: 100px;
   height: 50px;
   margin: 20px;
@@ -53,18 +55,6 @@
 
 .content-container {
   display: flex;
-}
-.content-container nav.settings {
-  width: 10%;
-}
-.content-container nav.settings ul li {
-  background-color: black;
-}
-.content-container nav.settings ul li a {
-  display: block;
-  color: white;
-  padding: 20px;
-  text-align: center;
 }
 .content-container main {
   width: 90%;

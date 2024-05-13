@@ -1,6 +1,6 @@
 from models.base_model import db
 # from models.unit import Unit_Parameter
-from functions.settings import get_parameter, get_unit, get_period, get_periods
+from functions.settings import get_parameter, get_unit, get_period, get_periods, get_parameters
 from models.settings import Unit_parameter
 from models.settings import Unit, Parameter, Period
 
@@ -24,3 +24,8 @@ def prepare_unit_parameters(unit):
         result[period.period_desc] = all_parameters.filter(Unit_parameter.period.has(period_desc=period.period_desc)).all()
     print(result)
     return result
+
+def prepare_rest_unit_parameters(unit):
+    unit = get_unit(*unit.split(" SN "))
+    parameters = get_parameters()
+    return ''

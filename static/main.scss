@@ -1,27 +1,11 @@
-@import 'styles/modal';
-@import 'styles/tables';
-
-* {
-    margin: 0px;
-    padding: 0px;
-    list-style: none;
-    text-decoration: none;
-}
-
-
-input,
-select,
-textarea,
-button {
-    font-family: inherit;
-}
-
-// variables
-$header-font: #074561;
+@use 'styles/variables' as v;
+@use 'styles/reset';
+@use 'styles/modal';
+@use 'styles/tables';
 
 
 body {
-    background: linear-gradient(0deg, rgb(220, 255, 254) 0%, rgba(174, 178, 255, 1) 100%);
+    background: v.$background;
     background-attachment: fixed;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -29,28 +13,93 @@ body {
 
 }
 
+a {
+    color: white;
+    transition: 0.5s;
+
+    &:hover {
+        color: #23dbdb;
+    }
+}
+
 .container {
     width: 1200px;
     margin: auto;
+}
+
+header {
+    background: v.$menu;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, .4);
+
+    .main-menu {
+
+        .logo {
+            display: inline-block;
+            font-size: 33px;
+            font-weight: bold;
+            line-height: 70px;
+        }
+
+        ul {
+            float: right;
+
+            li {
+                display: inline-block;
+                position: relative;
+
+                a {
+                    display: block;
+                    padding: 0 15px;
+                    line-height: 70px;
+                    font-size: 22px;
+                    background: v.$menu;
+                }
+
+                ul {
+                    position: absolute;
+                    top: 100%;
+                    border-top: 3px solid #23dbdb;
+                    opacity: 0;
+                    visibility: hidden;
+
+                    li {
+                        display: list-item;
+                        position: relative;
+                        border: 1px solid #287ca7;
+                        border-top: none;
+
+                        a {
+                            line-height: 50px;
+                        }
+                    }
+                }
+
+                &:hover>ul {
+                    width: fit-content;
+                    opacity: 1;
+                    visibility: visible;
+                    transition: .3s linear;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
 }
 
 .sub-menu {
     text-align: center;
 
     ul {
-        display: inline-block;
-        margin: auto;
         margin-top: 25px;
 
         li {
             display: inline-block;
-            margin-right: 10px;
+            padding: 0 5px;
 
             a {
                 padding: 10px 15px;
                 border-radius: 10px;
-                background-color: $header-font;
-                color: white;
+                background-color: v.$menu;
                 transition: 0.5s;
                 box-shadow: 0 3px 15px rgba(0, 0, 0, .4);
 
@@ -62,249 +111,24 @@ body {
     }
 }
 
-.select-protocol {
-    text-align: center;
-    margin: auto;
-    cursor: default;
+nav.settings {
+    position: relative;
+    top: 0;
+    left: 0;
 
-    table {
-        margin: auto;
-        margin-top: 30px;
-        border-collapse: collapse;
-
-        th,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 5px 15px;
-            background-color: white;
-        }
-
-        th {
-            writing-mode: horizontal-tb;
-        }
-
-        .inactive {
-            background-color: red;
-        }
-
-        .active {
-            background-color: rgb(35, 231, 35);
-        }
-
-        .absent {
-            background-color: black;
-        }
-    }
-
-    button {
-        margin-top: 20px;
-        width: 200px;
-        height: 30px;
-    }
-}
-
-.units {
-    border: 2px solid rgb(31, 207, 104);
-    border-radius: 5px;
-    width: 500px;
-    margin: auto;
-    margin-top: 30px;
-
-    label {
-        width: 150px;
+    ul {
+        background-color: v.$menu;
         display: inline-block;
-    }
-
-
-
-    select {
-        width: 300px;
-        margin: 15px;
-    }
-
-    button {
-        text-align: center;
-    }
-
-    input[type=submit] {
-        display: block;
-        margin: auto;
-    }
-}
-
-.main-menu {
-    height: 70px;
-    background: $header-font;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, .4);
-
-    .logo {
-        color: white;
-        font-size: 33px;
-        font-weight: bold;
-        line-height: 70px;
-        padding-left: 110px;
-    }
-
-    ul {
-        float: right;
-        margin-right: 30px;
+        padding-inline-start: 0px;
+        padding-top: 50px;
 
         li {
-            display: inline-block;
-            position: relative;
+            padding: 20px;
 
             a {
                 color: white;
-                display: block;
-                padding: 0 15px;
-                line-height: 70px;
-                font-size: 20px;
-                background: $header-font;
-                transition: .5s;
-
-                &:hover {
-                    color: #23dbdb;
-                }
+                text-align: center;
             }
-
-            ul {
-                position: absolute;
-                top: 100%;
-                border-top: 3px solid #23dbdb;
-                opacity: 0;
-                visibility: hidden;
-
-                li {
-                    display: list-item;
-                    position: relative;
-                    border: 1px solid #042331;
-                    border-top: none;
-
-                    a {
-                        line-height: 50px;
-                    }
-
-                    ul {
-                        border-top: none;
-                        position: absolute;
-                        top: 0px;
-                        left: 100%;
-                    }
-                }
-            }
-
-            &:hover>ul {
-                width: fit-content;
-                opacity: 1;
-                visibility: visible;
-                transition: .3s linear;
-                white-space: nowrap;
-            }
-        }
-
-
-
-    }
-}
-
-.sidebar {
-    width: 250px;
-    background: #1b1b1b;
-
-    .text {
-        color: white;
-        font-size: 25px;
-        font-weight: 600;
-        line-height: 65px;
-        text-align: center;
-        background: #1e1e1e;
-        letter-spacing: 1px;
-    }
-
-    ul {
-
-        li {
-            line-height: 60px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-            a {
-                position: relative;
-                color: white;
-                font-size: 18px;
-                padding-left: 40px;
-                font-weight: 500;
-                display: block;
-                border-left: 3px solid transparent;
-
-                &:hover {
-                    color: cyan;
-                    background: #1e1e1e;
-                    border-left-color: cyan;
-                }
-
-                .rotate {
-                    transform: translateY(-50%) rotate(-180deg);
-                }
-
-                .active {
-                    color: cyan;
-                    background: #1e1e1e;
-                    border-left-color: cyan;
-
-                    ul li a {
-                        color: #e6e6e6;
-                        background: #1b1b1b;
-                        border-left-color: transparent;
-                    }
-                }
-
-                span {
-                    position: absolute;
-                    top: 50%;
-                    right: 20px;
-                    transform: translateY(-50%);
-                    font-size: 22px;
-                    transition: transform 0.4s;
-                }
-            }
-
-            ul {
-                position: static;
-                display: none;
-
-                li {
-                    line-height: 42px;
-                    border-top: none;
-
-                    a {
-                        font-size: 17px;
-                        color: #e6e6e6;
-                        padding-left: 80px;
-
-                        &:hover {
-                            color: cyan !important;
-                            background: #1e1e1e !important;
-                        }
-                    }
-                }
-            }
-        }
-
-        .feat-show.show {
-            display: block;
-        }
-
-        .serv-show.show1 {
-            display: block;
-        }
-
-        &:last-child {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
     }
-}
-
-.flex {
-    display: flex;
 }

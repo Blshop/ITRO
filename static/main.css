@@ -1,3 +1,32 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  padding-inline-start: 0;
+}
+
 .modal {
   padding: 50px;
   position: fixed;
@@ -53,6 +82,7 @@
 #add-form select {
   font-size: 18px;
   padding: 5px;
+  box-sizing: content-box;
 }
 
 .item-list {
@@ -105,20 +135,6 @@
   visibility: visible;
 }
 
-* {
-  margin: 0px;
-  padding: 0px;
-  list-style: none;
-  text-decoration: none;
-}
-
-input,
-select,
-textarea,
-button {
-  font-family: inherit;
-}
-
 body {
   background: linear-gradient(0deg, rgb(220, 255, 254) 0%, rgb(174, 178, 255) 100%);
   background-attachment: fixed;
@@ -129,148 +145,60 @@ body {
           user-select: none;
 }
 
+a {
+  color: white;
+  transition: 0.5s;
+}
+a:hover {
+  color: #23dbdb;
+}
+
 .container {
   width: 1200px;
   margin: auto;
 }
 
-.sub-menu {
-  text-align: center;
-}
-.sub-menu ul {
-  display: inline-block;
-  margin: auto;
-  margin-top: 25px;
-}
-.sub-menu ul li {
-  display: inline-block;
-  margin-right: 10px;
-}
-.sub-menu ul li a {
-  padding: 10px 15px;
-  border-radius: 10px;
-  background-color: #074561;
-  color: white;
-  transition: 0.5s;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
-}
-.sub-menu ul li a:hover {
-  color: #23dbdb;
-}
-
-.select-protocol {
-  text-align: center;
-  margin: auto;
-  cursor: default;
-}
-.select-protocol table {
-  margin: auto;
-  margin-top: 30px;
-  border-collapse: collapse;
-}
-.select-protocol table th,
-.select-protocol table td {
-  border: 1px solid black;
-  border-collapse: collapse;
-  padding: 5px 15px;
-  background-color: white;
-}
-.select-protocol table th {
-  writing-mode: horizontal-tb;
-}
-.select-protocol table .inactive {
-  background-color: red;
-}
-.select-protocol table .active {
-  background-color: rgb(35, 231, 35);
-}
-.select-protocol table .absent {
-  background-color: black;
-}
-.select-protocol button {
-  margin-top: 20px;
-  width: 200px;
-  height: 30px;
-}
-
-.units {
-  border: 2px solid rgb(31, 207, 104);
-  border-radius: 5px;
-  width: 500px;
-  margin: auto;
-  margin-top: 30px;
-}
-.units label {
-  width: 150px;
-  display: inline-block;
-}
-.units select {
-  width: 300px;
-  margin: 15px;
-}
-.units button {
-  text-align: center;
-}
-.units input[type=submit] {
-  display: block;
-  margin: auto;
-}
-
-.main-menu {
-  height: 70px;
+header {
   background: #074561;
   box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
 }
-.main-menu .logo {
-  color: white;
+header .main-menu .logo {
+  display: inline-block;
   font-size: 33px;
   font-weight: bold;
   line-height: 70px;
-  padding-left: 110px;
 }
-.main-menu ul {
+header .main-menu ul {
   float: right;
-  margin-right: 30px;
 }
-.main-menu ul li {
+header .main-menu ul li {
   display: inline-block;
   position: relative;
 }
-.main-menu ul li a {
-  color: white;
+header .main-menu ul li a {
   display: block;
   padding: 0 15px;
   line-height: 70px;
-  font-size: 20px;
+  font-size: 22px;
   background: #074561;
-  transition: 0.5s;
 }
-.main-menu ul li a:hover {
-  color: #23dbdb;
-}
-.main-menu ul li ul {
+header .main-menu ul li ul {
   position: absolute;
   top: 100%;
   border-top: 3px solid #23dbdb;
   opacity: 0;
   visibility: hidden;
 }
-.main-menu ul li ul li {
+header .main-menu ul li ul li {
   display: list-item;
   position: relative;
-  border: 1px solid #042331;
+  border: 1px solid #287ca7;
   border-top: none;
 }
-.main-menu ul li ul li a {
+header .main-menu ul li ul li a {
   line-height: 50px;
 }
-.main-menu ul li ul li ul {
-  border-top: none;
-  position: absolute;
-  top: 0px;
-  left: 100%;
-}
-.main-menu ul li:hover > ul {
+header .main-menu ul li:hover > ul {
   width: -moz-fit-content;
   width: fit-content;
   opacity: 1;
@@ -279,85 +207,42 @@ body {
   white-space: nowrap;
 }
 
-.sidebar {
-  width: 250px;
-  background: #1b1b1b;
-}
-.sidebar .text {
-  color: white;
-  font-size: 25px;
-  font-weight: 600;
-  line-height: 65px;
+.sub-menu {
   text-align: center;
-  background: #1e1e1e;
-  letter-spacing: 1px;
 }
-.sidebar ul li {
-  line-height: 60px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+.sub-menu ul {
+  margin-top: 25px;
 }
-.sidebar ul li a {
-  position: relative;
-  color: white;
-  font-size: 18px;
-  padding-left: 40px;
-  font-weight: 500;
-  display: block;
-  border-left: 3px solid transparent;
+.sub-menu ul li {
+  display: inline-block;
+  padding: 0 5px;
 }
-.sidebar ul li a:hover {
-  color: cyan;
-  background: #1e1e1e;
-  border-left-color: cyan;
+.sub-menu ul li a {
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: #074561;
+  transition: 0.5s;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
 }
-.sidebar ul li a .rotate {
-  transform: translateY(-50%) rotate(-180deg);
-}
-.sidebar ul li a .active {
-  color: cyan;
-  background: #1e1e1e;
-  border-left-color: cyan;
-}
-.sidebar ul li a .active ul li a {
-  color: #e6e6e6;
-  background: #1b1b1b;
-  border-left-color: transparent;
-}
-.sidebar ul li a span {
-  position: absolute;
-  top: 50%;
-  right: 20px;
-  transform: translateY(-50%);
-  font-size: 22px;
-  transition: transform 0.4s;
-}
-.sidebar ul li ul {
-  position: static;
-  display: none;
-}
-.sidebar ul li ul li {
-  line-height: 42px;
-  border-top: none;
-}
-.sidebar ul li ul li a {
-  font-size: 17px;
-  color: #e6e6e6;
-  padding-left: 80px;
-}
-.sidebar ul li ul li a:hover {
-  color: cyan !important;
-  background: #1e1e1e !important;
-}
-.sidebar ul .feat-show.show {
-  display: block;
-}
-.sidebar ul .serv-show.show1 {
-  display: block;
-}
-.sidebar ul:last-child {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+.sub-menu ul li a:hover {
+  color: #23dbdb;
 }
 
-.flex {
-  display: flex;
+nav.settings {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+nav.settings ul {
+  background-color: #074561;
+  display: inline-block;
+  padding-inline-start: 0px;
+  padding-top: 50px;
+}
+nav.settings ul li {
+  padding: 20px;
+}
+nav.settings ul li a {
+  color: white;
+  text-align: center;
 }/*# sourceMappingURL=main.css.map */

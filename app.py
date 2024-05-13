@@ -1,10 +1,6 @@
 from flask import (
     Flask,
     render_template,
-    request,
-    redirect,
-    url_for,
-    jsonify,
     session,
 )
 from bp_settings.settings import settings_bp
@@ -26,8 +22,7 @@ db.init_app(app)
 
 @app.route("/")
 def index():
-    units = get_units()
-    session['units'] = [unit.unit_desc+' SN '+str(unit.unit_sn) for unit in units]
+    session['units'] = [unit.unit_desc for unit in get_units()]
     return render_template("index.html")
 
 
