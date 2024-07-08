@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('documents_bp.static',filename='protocol.css') }}">
+{% endblock %}
+{% block main %}
+<div class="content-container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                {% for period in periods %}
+                <th onclick="select_all(this)">{{period.period_desc}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for unit in units %}
+            <tr>
+                <td>{{unit.unit_desc}}</td>
+                {% for period in periods %}
+                <td></td>
+                {% endfor %}
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <input type="month" name="" id="">
+    <button>Подготовить</button>
+    <button class="print">Распечатать</button>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</div>
+<script src="{{url_for('documents_bp.static', filename='protocols.js')}}"></script>
+{%endblock%}

@@ -24,13 +24,14 @@
         <main>
             <div class="title">
                 <p>Контроль качества работы</p>
-                <p>Линейный ускоритель</p>
+                <p>{{unit.unit_type.unit_type_desc}}</p>
+                <p>Наименование: {{unit.unit_desc}} &emsp; С/Н: {{unit.unit_sn}}</p>
             </div>
             <div class="data-container">
-                <div class="item-list">
-                    {% for period, parameters in unit_parameters.items() %}
-                    {% if parameters%}
-                    <p>{{period}}</p>
+
+                {% for period, parameters in unit_parameters.items() %}
+                {% if parameters%}<div class="item-list">
+                    <p>{{period.upper()}}</p>
                     <table>
                         <thead>
                             <tr>
@@ -42,16 +43,17 @@
                         <tbody>
                             {%for parameter in parameters %}
                             <tr class="data" id="">
-                                <td>{{1}}</td>
+                                <td>{{loop.index}}</td>
                                 <td>{{parameter.parameter.parameter_desc}}</td>
                                 <td>{{parameter.parameter.deviation.deviation_desc}}</td>
                             </tr>
                             {%endfor%}
                         </tbody>
                     </table>
-                    {% endif %}
-                    {% endfor %}
                 </div>
+                {% endif %}
+                {% endfor %}
+
             </div>
             <div class="signature">
                 <div class="person">

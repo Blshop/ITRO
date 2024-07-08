@@ -1,4 +1,7 @@
 {% extends "index.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('units_bp.static',filename='unit.css') }}">
+{% endblock %}
 {% block main %}
 <div class="container">
     <div class="sub-menu">
@@ -6,7 +9,8 @@
             <li><a href="{{url_for('units_bp.unit_parameter')}}">Параметры</a></li>
             <li><a href="/database/general_data/period">Календарь</a></li>
             <li><a href="/database/general_data/deviation">События</a></li>
-            <li><a href="/units/unit_document/2">Документы</a></li>
+            <li><a href="{{url_for('.unit_document', path='path')}}">Документы</a></li>
+            <li><a href="{{url_for('units_bp.control')}}">Контроль</a></li>
         </ul>
     </div>
     <main>

@@ -1,6 +1,6 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
+    font-size: 12pt;
     padding: 0px;
     margin: 0px;
 }
@@ -13,14 +13,24 @@
     header {
         display: flex;
 
+
         .header-wrapper {
             margin-left: auto;
             text-align: left;
+
+            p {
+                font-size: 14pt;
+            }
         }
     }
 
     .title {
         padding: 30px;
+
+        p {
+            text-transform: uppercase;
+            padding: 5px;
+        }
     }
 
     table,
@@ -28,19 +38,26 @@
     td {
         border: 1px solid black;
         border-collapse: collapse;
-    }
-
-    td {
         padding: 5px 20px;
     }
 
     table {
+        width: 700px;
         margin: auto;
+
+        td:nth-child(1) {
+            width: 30px;
+        }
+
+        td:nth-child(3) {
+            width: 100px;
+        }
+
     }
 
     .item-list {
         p {
-            padding: 20px;
+            padding: 20px 0px 5px 0px;
         }
     }
 
@@ -59,4 +76,10 @@
 
 @page {
     size: A4;
+}
+
+@media print {
+    .item-list {
+        break-inside: avoid;
+    }
 }

@@ -1,0 +1,21 @@
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    margin: auto;
+    margin-top: 50px;
+    background-color: white;
+
+    th,
+    td {
+        padding: 5px;
+    }
+}
+
+.active {
+    background-color: green;
+}

@@ -24,25 +24,16 @@
                     <li>
                         <a href=>Аппараты <i class="fas fa-caret-down"></i></a>
                         <ul>
-                            <li><a href="/units/document">Документы</a></li>
-                            <li><a href="/database/parameter">Календарь</a></li>
-                            <li><a href="/database/unit">Аппараты</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href=>Аппараты <i class="fas fa-caret-down"></i></a>
-                        <ul>
                             {% for unit in session['units'] %}
-                            <li><a href="{{url_for('units_bp.unit', variable=unit)}}">{{unit}}</a></li>
+                            <li><a href="{{url_for('units_bp.unit', current_unit=unit)}}">{{unit}}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
                     <li>
-                        <a href="">Документы <i class="fas fa-caret-down"></i></a>
-
-                        <ul class="dropdown-content">
-                            <li><a href="/unit_parameter">Аппараты/Параметры</a></li>
-                            <li><a href="/control_protocol">Протоколы</a></li>
+                        <a href=>Документы <i class="fas fa-caret-down"></i></a>
+                        <ul>
+                            <li><a href="{{url_for('documents_bp.protocols')}}">Протоколы</a></li>
+                            <li><a href="{{url_for('documents_bp.documents')}}">Документы</a></li>
                         </ul>
                     </li>
                     <li>

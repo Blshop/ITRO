@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static',filename='print_daily.css') }}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="title">
+                <p class="h1">Протокол</p>
+                <p>Контроля технических характеристик</p>
+                <p>{{unit.unit_type.unit_type_desc}}</p>
+                <p class="unit">{{unit.unit_desc}}
+            </div>
+            <div class="header-wrapper">
+                <p>Еженедельный</p>
+                <div class="line">
+                    <p>Год: </p>
+                    <p id="year"></p>
+                </div>
+                <div class="line">
+                    <p>Месяц:</p>
+                    <p id="month"> </p>
+                </div>
+
+            </div>
+
+        </header>
+        <main>
+
+            <div class="data-container">
+
+                {% for period, parameters in unit_parameters.items() %}
+                {% if parameters%}<div class="item-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                {%for parameter in parameters %}
+                                <th>{{parameter.parameter.parameter_desc}}</th>
+                                {%endfor%}
+                                <th class="last">Подпись</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <br>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+            <div class="signature">
+                <div class="person">
+                    <p>Инженер (заведующего ИТРО)</p>
+                    <p>_________________ П.Е. Розенков</p>
+                </div>
+            </div>
+        </main>
+
+
+    </div>
+
+</body>
+<script src="{{url_for('units_bp.static', filename='print_daily.js')}}"></script>
+
+</html>

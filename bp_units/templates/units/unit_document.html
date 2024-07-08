@@ -1,18 +1,65 @@
-{% extends "units/unit.html" %}
-
+{% extends "unit.html" %}
 {% block content %}
-<div class="general_add_form">
-    <form action="" method="POST">
-        <input type="date">
-        <input type="file">
-        <div>
-            <input type="checkbox" id="scales" name="scales" checked>
-            <label for="scales">Scales</label>
+<div class="controls">
+    <button data-modal-target="#modal" id="add">добавить</button>
+    <a href="{{ url_for('.print_parameters') }}" target="_blank">Распечатать</a>
+</div>
+<div class="modal" id="modal">
+    <form id="add-form" action="{{url_for('.unit_document', path='path')}}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id">
+        <div class="input_box">
+            <label for="document_type_desc">Тип документа</label>
+            <select name="document_type_desc" id="">
+                {% for document_type in document_types %}
+                <option value="{{document_type.document_type_desc}}">{{document_type.document_type_desc}}</option>
+                {% endfor %}
+            </select>
         </div>
-        <label for="deviation_value">Допустимое отклонение</label>
-        <input type="text" id='deviation_value' name="deviation_value">
-        <input type="submit" name="submit_button" value="Добавить">
+        <div class="input_box">
+            <label for="valid_year">Год</label>
+            <input type="number" value="2024" name="valid_year">
+        </div>
+        <div class="input_box">
+            <label for="document_desc">Наименование документа</label>
+            <input type="text" name="document_desc">
+        </div>
+        <div class="input_box">
+            <label for="creation_date">дата создания</label>
+            <input type="date" name="creation_date">
+        </div>
+        <div class="input_box">
+            <label for="path">загрузить файл</label>
+            <input type="file" name="path">
+        </div>
+        <div class="input_box">
+            <label for="period_desc">Периодичность</label>
+            <select name="period_desc" id="select">
+                {% for period in periods %}
+                <option value="{{period.period_desc}}">{{period.period_desc}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input type="submit" value="Добавить">
     </form>
 </div>
-<script src="{{url_for('units_bp.static', filename='unit_calendar.js')}}"></script>
-{%endblock%}
+<div id="overlay"></div>
+<div class="content-container">
+    <nav class="side-menu">
+        <ul>
+            {% for document in documents %}
+            <li><a
+                    href="{{url_for('.unit_document', path=document.document_path+'/'+document.creation_date|string+'/'+document.document_desc+'.pdf')}}">{{document.document_desc}}</a>
+            </li>
+            <li><a href="{{url_for('.unit_document', path='2024/casio.pdf')}}">{{document.document_desc}}</a>
+            </li>
+            <li><a href="{{url_for('.unit_document', path='casio.pdf')}}">{{document.document_desc}}</a>
+            </li>
+            {% endfor%}
+        </ul>
+
+    </nav>
+    <iframe src="{{url_for('.send_report', path='2.pdf')}}" frameborder="0" width="1000" height="1500"></iframe>
+</div>
+<script src="{{url_for('static', filename='main.js')}}"></script>
+<script src="{{url_for('settings_bp.static', filename='period.js')}}"></script>
+{% endblock %}

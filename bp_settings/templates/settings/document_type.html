@@ -2,11 +2,11 @@
 {% block content %}
 
 <div class="modal" id="modal">
-    <form id="add-form" action="{{ url_for('.unit_type') }}" method="POST">
+    <form id="add-form" action="{{ url_for('.document_type') }}" method="POST">
         <input type="hidden" name="id">
         <div class="input_box">
-            <label for="unit_type_desc">Тип аппарата</label>
-            <input type="text" name="unit_type_desc">
+            <label for="document_type_desc">Тип документа</label>
+            <input type="text" name="document_type_desc">
         </div>
         <input type="submit" value="Добавить">
     </form>
@@ -19,22 +19,20 @@
             <thead>
                 <tr>
                     <th>№ пп</th>
-                    <th>Тип аппарата</th>
+                    <th>Тип документа</th>
                 </tr>
             </thead>
             <tbody>
-                {%for unit_type in unit_types %}
-                <tr class="data" id="{{unit_type.unit_type_id}}">
+                {%for document_type in document_types %}
+                <tr class="data" id="{{document_type.document_type_id}}">
                     <td>{{loop.index}}</td>
-                    <td>{{unit_type.unit_type_desc}}</td>
+                    <td>{{document_type.document_type_desc}}</td>
                 </tr>
                 {%endfor%}
             </tbody>
         </table>
     </div>
 </div>
-
 <script src="{{url_for('static', filename='main.js')}}"></script>
 <script src="{{url_for('settings_bp.static', filename='settings.js')}}"></script>
-
 {% endblock %}

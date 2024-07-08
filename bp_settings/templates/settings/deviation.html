@@ -23,9 +23,9 @@
                 </tr>
             </thead>
             <tbody>
-                {%for number,deviation in deviations %}
+                {%for deviation in deviations %}
                 <tr class="data" id="{{deviation.deviation_id}}">
-                    <td>{{number+1}}</td>
+                    <td>{{loop.index}}</td>
                     <td>{{deviation.deviation_desc}}</td>
                 </tr>
                 {%endfor%}
@@ -35,6 +35,6 @@
 </div>
 
 <script src="{{url_for('static', filename='main.js')}}"></script>
-<script src="{{url_for('settings_bp.static', filename='deviation.js')}}"></script>
+<script src="{{url_for('settings_bp.static', filename='settings.js')}}"></script>
 
 {% endblock %}

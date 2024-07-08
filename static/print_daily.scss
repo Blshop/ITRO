@@ -1,0 +1,163 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    padding: 0px;
+    margin: 0px;
+}
+
+.container {
+    width: 21cm;
+    margin: auto;
+    text-align: center;
+
+    header {
+        display: flex;
+
+        .header-wrapper {
+            display: inline-block;
+            top: 10px;
+            right: 10px;
+            text-align: left;
+
+            .line {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            p {
+                text-transform: uppercase;
+                line-height: 1.8;
+                font-size: 12pt;
+            }
+        }
+    }
+
+    .title {
+        margin: auto;
+        padding-bottom: 10px;
+
+        .h1 {
+            font-weight: bold;
+            font-size: 14pt;
+        }
+
+        .h1,
+        .unit {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        p {
+            padding: 5px;
+            font-size: 14pt;
+        }
+    }
+
+    // tables info
+
+    table,
+    th,
+    td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 1px 0px;
+        font-size: 11pt;
+        font-weight: 100;
+    }
+
+    table {
+        width: 780px;
+        margin: auto;
+
+        .vertical {
+            writing-mode: vertical-rl;
+            transform: rotate(-180deg);
+            text-wrap: wrap;
+            height: 200px;
+            overflow: hidden;
+
+
+        }
+
+    }
+
+    table.weekly {
+        td:nth-child(1) {
+            width: 250px;
+        }
+
+        td:nth-child(2) {
+            width: 120px;
+        }
+
+        td.reset {
+            width: auto;
+        }
+
+        tr {
+            height: 50px;
+        }
+    }
+
+    table.monthly {
+        td:nth-child(1) {
+            width: 350px;
+        }
+
+        td:nth-child(2) {
+            width: 150px;
+        }
+
+        tr {
+            height: 50px;
+        }
+    }
+
+    .item-list {
+        p {
+            padding: 20px 0px 5px 0px;
+        }
+    }
+
+    .signature {
+        margin-top: 20px;
+
+        .person {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+}
+
+tbody {
+    tr {
+        height: 25px;
+    }
+}
+
+
+@page {
+    size: A4;
+}
+
+@media print {
+    @page {
+        margin: 10mm 5mm 5mm 20mm;
+    }
+
+    .item-list {
+        break-inside: avoid;
+
+        .pagebreak {
+            page-break-before: always;
+        }
+    }
+}
+
+table.weekly {
+    th {
+        writing-mode: horizontal-tb;
+    }
+
+}

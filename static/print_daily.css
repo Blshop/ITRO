@@ -1,0 +1,121 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12pt;
+  padding: 0px;
+  margin: 0px;
+}
+
+.container {
+  width: 21cm;
+  margin: auto;
+  text-align: center;
+}
+.container header {
+  display: flex;
+}
+.container header .header-wrapper {
+  display: inline-block;
+  top: 10px;
+  right: 10px;
+  text-align: left;
+}
+.container header .header-wrapper .line {
+  display: flex;
+  justify-content: space-between;
+}
+.container header .header-wrapper p {
+  text-transform: uppercase;
+  line-height: 1.8;
+  font-size: 12pt;
+}
+.container .title {
+  margin: auto;
+  padding-bottom: 10px;
+}
+.container .title .h1 {
+  font-weight: bold;
+  font-size: 14pt;
+}
+.container .title .h1,
+.container .title .unit {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.container .title p {
+  padding: 5px;
+  font-size: 14pt;
+}
+.container table,
+.container th,
+.container td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 1px 0px;
+  font-size: 11pt;
+  font-weight: 100;
+}
+.container table {
+  width: 780px;
+  margin: auto;
+}
+.container table .vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(-180deg);
+  text-wrap: wrap;
+  height: 200px;
+  overflow: hidden;
+}
+.container table.weekly td:nth-child(1) {
+  width: 250px;
+}
+.container table.weekly td:nth-child(2) {
+  width: 120px;
+}
+.container table.weekly td.reset {
+  width: auto;
+}
+.container table.weekly tr {
+  height: 50px;
+}
+.container table.monthly td:nth-child(1) {
+  width: 350px;
+}
+.container table.monthly td:nth-child(2) {
+  width: 150px;
+}
+.container table.monthly tr {
+  height: 50px;
+}
+.container .item-list p {
+  padding: 20px 0px 5px 0px;
+}
+.container .signature {
+  margin-top: 20px;
+}
+.container .signature .person {
+  display: flex;
+  justify-content: space-between;
+}
+
+tbody tr {
+  height: 25px;
+}
+
+@page {
+  size: A4;
+}
+@media print {
+  @page {
+    margin: 10mm 5mm 5mm 20mm;
+  }
+  .item-list {
+    -moz-column-break-inside: avoid;
+         break-inside: avoid;
+  }
+  .item-list .pagebreak {
+    page-break-before: always;
+  }
+}
+table.weekly th {
+  writing-mode: horizontal-tb;
+}/*# sourceMappingURL=print_daily.css.map */

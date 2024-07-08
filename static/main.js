@@ -1,6 +1,5 @@
 const openModalButton = document.querySelector('[data-modal-target]')
 const overlay = document.getElementById('overlay')
-console.log(overlay)
 overlay.addEventListener('click', () => {
     const modal = document.querySelector('.modal.active')
     closeModal(modal)

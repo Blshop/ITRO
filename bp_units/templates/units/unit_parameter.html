@@ -1,11 +1,14 @@
 {% extends "unit.html" %}
 {% block content %}
-
+<div class="controls">
+    <button data-modal-target="#modal" id="add">добавить</button>
+    <a href="{{ url_for('.print_parameters') }}" target="_blank">Распечатать</a>
+</div>
 <div class="modal" id="modal">
     <form id="add-form" action="{{ url_for('.unit_parameter') }}" method="POST">
         <input type="hidden" name="id">
         <div class="input_box">
-            <label for="parameter_desc">Наименование</label>
+            <label for="parameter_desc">Параметр</label>
             <select name="parameter_desc" id="select">
                 {% for parameter in parameters %}
                 <option value="{{parameter.parameter_desc+'*'+parameter.deviation.deviation_desc}}">
@@ -14,7 +17,7 @@
             </select>
         </div>
         <div class="input_box">
-            <label for="period_desc">Наименование</label>
+            <label for="period_desc">Периодичность</label>
             <select name="period_desc" id="select">
                 {% for period in periods %}
                 <option value="{{period.period_desc}}">{{period.period_desc}}</option>
@@ -29,7 +32,6 @@
 <div class="data-container">
     <div class="item-list">
         {{session['current_unit']}}
-        <button data-modal-target="#modal" id="add">добавить</button>
         {% for period, parameters in result.items() %}
         {% if parameters%}
         <p>{{period}}</p>
@@ -44,7 +46,7 @@
             <tbody>
                 {%for parameter in parameters %}
                 <tr class="data" id="">
-                    <td>{{1}}</td>
+                    <td>{{loop.index}}</td>
                     <td>{{parameter.parameter.parameter_desc}}</td>
                     <td>{{parameter.parameter.deviation.deviation_desc}}</td>
                 </tr>
@@ -53,7 +55,6 @@
         </table>
         {% endif %}
         {% endfor %}
-        <a href="{{ url_for('.print_parameters') }}">Распечатать</a>
     </div>
 </div>
 <script src="{{url_for('static', filename='main.js')}}"></script>

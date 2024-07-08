@@ -28,9 +28,9 @@
                 </tr>
             </thead>
             <tbody>
-                {%for number,period in periods %}
+                {%for period in periods %}
                 <tr class="data" id="{{period.period_id}}">
-                    <td>{{number+1}}</td>
+                    <td>{{loop.index}}</td>
                     <td>{{period.period_desc}}</td>
                     <td>{{period.period_duration}}</td>
                 </tr>
@@ -40,5 +40,5 @@
     </div>
 </div>
 <script src="{{url_for('static', filename='main.js')}}"></script>
-<script src="{{url_for('settings_bp.static', filename='period.js')}}"></script>
+<script src="{{url_for('settings_bp.static', filename='settings.js')}}"></script>
 {% endblock %}

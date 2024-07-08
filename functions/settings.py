@@ -1,5 +1,5 @@
 from models.base_model import db
-from models.settings import Deviation, Parameter, Period, Unit, Unit_parameter, Unit_type
+from models.settings import Deviation, Parameter, Period, Unit, Unit_parameter, Unit_type, Document_type
 
 
 def add_deviation(deviation_desc):
@@ -84,8 +84,8 @@ def add_unit(unit_desc, unit_sn, unit_type_desc):
     db.session.commit()
 
 
-def get_unit(unit_desc, unit_sn):
-    unit = Unit.query.filter(Unit.unit_desc==unit_desc, Unit.unit_sn==unit_sn).first()
+def get_unit(unit_desc):
+    unit = Unit.query.filter(Unit.unit_desc==unit_desc).first()
     return unit
 
 def get_units():
@@ -119,4 +119,28 @@ def get_unit_types():
 def update_unit_type(new_unit_type, id):
     unit_type = Unit_type.query.filter(Unit_type.unit_type_id == id).first()
     unit_type.unit_type_id = new_unit_type
+    db.session.commit()
+
+
+def add_document_type(document_type_desc):
+    new_parameter = Document_type(document_type_desc=document_type_desc)
+    db.session.add(new_parameter)
+    db.session.commit()
+
+
+def get_document_type(document_type_desc):
+    document_type = Document_type.query.filter(
+        Document_type.document_type_desc == document_type_desc,
+    ).first()
+    return document_type
+
+
+def get_document_types():
+    document_types = Document_type.query.all()
+    return document_types
+
+
+def update_document_type(new_document_type_desc, id):
+    parameter = Document_type.query.filter_by(document_type_id=id).first()
+    parameter.document_type_desc = new_document_type_desc
     db.session.commit()

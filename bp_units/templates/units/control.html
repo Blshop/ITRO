@@ -1,0 +1,46 @@
+{% extends "unit.html" %}
+{% block content %}
+<div class="controls">
+    <button data-modal-target="#modal" id="add">добавить</button>
+    <a href="{{ url_for('.print_parameters') }}" target="_blank">Распечатать</a>
+</div>
+<div class="modal" id="modal">
+    <form id="add-form" action="{{ url_for('.control') }}" method="POST">
+        <input type="hidden" name="id">
+        <div class="input_box">
+            <label for="document_desc">Параметр</label>
+            <select name="document_desc" id="select">
+                {% for document_type in document_types %}
+                <option value="{{document_type.document_type_desc}}">
+                    {{document_type.document_type_desc}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input_box">
+            <label for="period_desc">Периодичность</label>
+            <select name="period_desc" id="select">
+                {% for period in periods %}
+                <option value="{{period.period_desc}}">{{period.period_desc}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input type="submit" value="Добавить">
+    </form>
+</div>
+<div id="overlay"></div>
+
+<div>
+    {%for unit_protocol, periods in result.items()%}
+    <div class="wrapper">
+        <label for="">{{unit_protocol}}</label>
+        {% for period in periods %}
+        {% for per in period.split(',')%}
+        <p>{{per}}</p>
+        {% endfor %}
+        {%endfor%}
+    </div>
+    {%endfor%}
+</div>
+<script src="{{url_for('static', filename='main.js')}}"></script>
+<script src="{{url_for('settings_bp.static', filename='period.js')}}"></script>
+{% endblock %}
