@@ -81,7 +81,6 @@ def get_unit_documents(unit):
         .group_by(Document_type.document_type_desc)
         .all()
     )
-    print(unit_documents)
     output = {}
     for unit_document in unit_documents:
         output[unit_document[0]] = []
@@ -90,7 +89,6 @@ def get_unit_documents(unit):
             output[unit_document[0]].append(
                 ",".join([duration.period_desc] * int((360 / duration.period_duration)))
             )
-    print(output)
     return output
 
 
@@ -114,7 +112,11 @@ def add_document(
     document_type = get_document_type(document_type)
     period = get_period(period)
     path = (
-        str(valid_year) + "/" + unit.unit_desc + "/" + document_type.document_type_desc
+        str(valid_year)
+        + "/"
+        + unit.unit_desc.replace(" ", "_")
+        + "/"
+        + document_type.document_type_desc.replace(" ", "_")
     )
     if not os.path.exists("all_documents/" + path):
         os.makedirs("all_documents/" + path)
@@ -127,15 +129,28 @@ def add_document(
         document_desc=document_desc,
         creation_date=creation_date,
         valid_year=valid_year,
-        document_path=path,
+        document_path=path + "/" + file.filename,
     )
     db.session.add(document)
     db.session.commit()
 
 
-def get_documnets():
-    documents = Document.query.all()
-    return documents
+def get_documents(unit):
+    print(unit)
+    types = Document_type.query.all()
+    result = {}
+    for type in types:
+        result[type.document_type_desc] = (
+            Document.query.join(Unit, Unit.unit_id == Document.fk_unit)
+            .join(
+                Document_type,
+                Document_type.document_type_id == Document.fk_document_type,
+            )
+            .filter(Unit.unit_desc == unit)
+            .filter(Document_type.document_type_desc == type.document_type_desc)
+            .all()
+        )
+    return result
 
 
 def print_period_parameters(data):

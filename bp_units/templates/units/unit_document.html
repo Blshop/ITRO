@@ -43,23 +43,36 @@
     </form>
 </div>
 <div id="overlay"></div>
-<div class="content-container">
-    <nav class="side-menu">
-        <ul>
-            {% for document in documents %}
-            <li><a
-                    href="{{url_for('.unit_document', path=document.document_path+'/'+document.creation_date|string+'/'+document.document_desc+'.pdf')}}">{{document.document_desc}}</a>
+<nav class="sidebar">
+    <div class="menu-content">
+        <ul class="menu-items">
+            <div class="menu-title">Документы</div>
+            {% for name, document in documents.items()%}
+            <li class="item">
+                <div class="submenu-item">
+                    <span>{{name}}</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </div>
+                <ul class="menu-items submenu">
+                    <div class="menu-title">
+                        <i class="fa-solid fa-chevron-left"></i>
+                        {{name}}
+                    </div>
+                    {%for item in document%}
+                    <li class="item">
+                        <a href="#" path="{{item.document_path}}">{{item.document_desc}}</a>
+                    </li>
+                    {%endfor%}
+                </ul>
             </li>
-            <li><a href="{{url_for('.unit_document', path='2024/casio.pdf')}}">{{document.document_desc}}</a>
-            </li>
-            <li><a href="{{url_for('.unit_document', path='casio.pdf')}}">{{document.document_desc}}</a>
-            </li>
-            {% endfor%}
+            {%endfor%}
         </ul>
+    </div>
+</nav>
+<div class="content-container">
 
-    </nav>
-    <iframe src="{{url_for('.send_report', path='2.pdf')}}" frameborder="0" width="1000" height="1500"></iframe>
+    <iframe src="" frameborder="0" width="1000" height="1500"></iframe>
 </div>
 <script src="{{url_for('static', filename='main.js')}}"></script>
-<script src="{{url_for('settings_bp.static', filename='period.js')}}"></script>
+<!-- <script src="{{url_for('settings_bp.static', filename='period.js')}}"></script> -->
 {% endblock %}

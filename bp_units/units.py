@@ -16,7 +16,7 @@ from functions.unit import (
     get_unit_documents,
     get_all_unit_document_types,
     add_document,
-    get_documnets,
+    get_documents,
 )
 import os
 
@@ -79,10 +79,11 @@ def unit_document(path=None):
         )
         return redirect(url_for(".control"))
     else:
-        documents = get_documnets()
+        documents = get_documents(session["current_unit"])
         document_types = get_document_types()
         periods = get_periods()
         result = get_unit_documents(session["current_unit"])
+        print(documents)
         return render_template(
             "units/unit_document.html",
             documents=documents,
@@ -128,7 +129,7 @@ def document():
         file = request.files["file"]
         return redirect(url_for(".control"))
     else:
-        documents = get_documnets()
+        documents = get_documents(session["current_unit"])
         document_types = get_document_types()
         periods = get_periods()
         result = get_unit_documents(session["current_unit"])
