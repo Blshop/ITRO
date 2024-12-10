@@ -29,10 +29,11 @@ units_bp = Blueprint(
 )
 
 
+@units_bp.route("/", methods=["GET", "POST"])
 @units_bp.route("/<current_unit>", methods=["GET", "POST"])
-def unit(current_unit):
+def general_info(current_unit=""):
     session["current_unit"] = current_unit
-    return render_template("unit.html")
+    return render_template("units/general_info.html")
 
 
 @units_bp.route("/unit_parameter", methods=["GET", "POST"])
@@ -65,8 +66,8 @@ def print_parameters():
     )
 
 
-@units_bp.route("/unit_document/<path>", methods=["GET", "POST"])
-def unit_document(path=None):
+@units_bp.route("/unit_document/<year>", methods=["GET", "POST"])
+def unit_document(year=2024):
     if request.method == "POST":
         add_document(
             session["current_unit"],
@@ -77,9 +78,9 @@ def unit_document(path=None):
             int(request.form["valid_year"]),
             request.files["path"],
         )
-        return redirect(url_for(".control"))
+        return redirect(url_for(".unit_document", year=2024))
     else:
-        documents = get_documents(session["current_unit"])
+        documents = get_documents(session["current_unit"], year)
         document_types = get_document_types()
         periods = get_periods()
         result = get_unit_documents(session["current_unit"])
@@ -90,7 +91,7 @@ def unit_document(path=None):
             periods=periods,
             result=result,
             document_types=document_types,
-            path="2024/casio.pdf",
+            current_year=year,
         )
 
 

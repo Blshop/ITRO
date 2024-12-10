@@ -135,21 +135,29 @@ def add_document(
     db.session.commit()
 
 
-def get_documents(unit):
-    print(unit)
+def get_documents(unit, year):
     types = Document_type.query.all()
+    periods = Period.query.all()
     result = {}
     for type in types:
-        result[type.document_type_desc] = (
-            Document.query.join(Unit, Unit.unit_id == Document.fk_unit)
-            .join(
-                Document_type,
-                Document_type.document_type_id == Document.fk_document_type,
+        result[type.document_type_desc] = {}
+        for period in periods:
+            result[type.document_type_desc][period.period_desc] = (
+                Document.query.join(Unit, Unit.unit_id == Document.fk_unit)
+                .join(
+                    Document_type,
+                    Document_type.document_type_id == Document.fk_document_type,
+                )
+                .join(Period, Period.period_id == Document.fk_period)
+                .filter(
+                    Unit.unit_desc == unit, Period.period_desc == period.period_desc
+                )
+                .filter(Document_type.document_type_desc == type.document_type_desc)
+                .filter(Document.valid_year == year)
+                .order_by(Period.period_duration.desc(), Document.creation_date.desc())
+                .all()
             )
-            .filter(Unit.unit_desc == unit)
-            .filter(Document_type.document_type_desc == type.document_type_desc)
-            .all()
-        )
+    print(result)
     return result
 
 
@@ -172,3 +180,49 @@ def print_period_parameters(data):
             if unit_parameter:
                 output[period].append({full_unit: unit_parameter})
     return output
+
+
+def prepare_docs_for_calendar(year):
+    all_docs = (
+        Document.query.join(Period, Period.period_id == Document.fk_period)
+        .filter(Document.valid_year == year)
+        .all()
+    )
+    result = {}
+    for doc in all_docs:
+        result[str(doc.creation_date)] = [doc.unit.unit_desc, doc.period.period_desc]
+    return result
+
+
+def documents_per_unit(unit, document_type, year):
+    """
+    Returns all documents fo a giver unit and year
+
+    Parameters:
+        unit: (int) needed unit id
+        document_type
+        year: (integer)
+    """
+    types = Document_type.query.all()
+    periods = Period.query.all()
+    result = {}
+    for type in types:
+        result[type.document_type_desc] = {}
+        for period in periods:
+            result[type.document_type_desc][period.period_desc] = (
+                Document.query.join(Unit, Unit.unit_id == Document.fk_unit)
+                .join(
+                    Document_type,
+                    Document_type.document_type_id == Document.fk_document_type,
+                )
+                .join(Period, Period.period_id == Document.fk_period)
+                .filter(
+                    Unit.unit_desc == unit, Period.period_desc == period.period_desc
+                )
+                .filter(Document_type.document_type_desc == type.document_type_desc)
+                .filter(Document.valid_year == year)
+                .order_by(Period.period_duration.desc(), Document.creation_date.desc())
+                .all()
+            )
+    print(result)
+    return result

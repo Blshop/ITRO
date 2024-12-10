@@ -1,0 +1,64 @@
+@use '../variables' as v;
+
+header {
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    background: v.$header-menu-color;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, .4);
+
+    .main-menu {
+
+        .logo {
+            display: inline-block;
+            font-size: 33px;
+            font-weight: bold;
+            line-height: 70px;
+        }
+
+        ul {
+            float: right;
+
+            li {
+                display: inline-block;
+                position: relative;
+
+                a {
+                    display: block;
+                    padding: 0 15px;
+                    line-height: 70px;
+                    font-size: 22px;
+                    background-color: v.$header-menu-color;
+                }
+
+                ul {
+                    position: absolute;
+                    top: 100%;
+                    border-top: 3px solid #23dbdb;
+                    opacity: 0;
+                    visibility: hidden;
+
+                    li {
+                        display: list-item;
+                        position: relative;
+                        border: 1px solid v.$link-border-small;
+                        border-top: none;
+                        z-index: 1;
+
+                        a {
+                            line-height: 50px;
+                        }
+                    }
+                }
+
+                &:hover>ul {
+                    width: fit-content;
+                    opacity: 1;
+                    visibility: visible;
+                    transition: .3s linear;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}

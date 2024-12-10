@@ -1,7 +1,7 @@
 const years = document.getElementsByClassName('year')
 const months = document.getElementsByClassName('month')
 const all_months = ["Январь", "February", "March", "April", "May", "June",
-    "Июль", "Август", "September", "October", "November", "December"];
+    "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 // for (let year of years) {
 //     year.innerHTML += myDate.getFullYear();
 // }
@@ -11,10 +11,10 @@ for (let month of months) {
 }
 
 const getDays = (year, month) => new Date(year, month, 0)
-let myDate = new Date(2024, 8, 0)
+let myDate = new Date(2024, 12, 0)
 const max_days = myDate.getDate()
 console.log(max_days)
-let holiday = new Date(2024, 6, 3)
+let holiday = new Date(2024, 11, 25)
 let tables = document.querySelectorAll('table')
 let tbodies = document.querySelectorAll('tbody')
 for (let table of tables) {
@@ -23,7 +23,7 @@ for (let table of tables) {
         for (let i = 0; i < max_days; i++) {
             let row = tbody.insertRow(i)
             myDate.setDate(i + 1)
-            // if (myDate.getDate() == holiday.getDate()) { row.style.backgroundColor = 'lightgray' }
+            if (myDate.getDate() == holiday.getDate()) { row.style.backgroundColor = 'lightgray' }
             if (myDate.getDay() == 6 || myDate.getDay() == 0) row.style.backgroundColor = 'lightgray';
             let cell = row.insertCell()
             cell.innerHTML = i + 1

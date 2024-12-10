@@ -1,0 +1,77 @@
+{% extends "index.html" %}
+{% block main %}
+{% include 'calendar/modal-document.html' %}
+{% include 'calendar/modal-pdf-viewer.html' %}
+<div id="overlay"></div>
+<div class="calendar-options">
+    <!-- <div class="unit-selection drop-down-container">
+        <div class="select-btn">
+            <span class="btn-text">Выбрать аппарат</span>
+            <span class="arrow-down"><i class="fas fa-caret-down"></i></span>
+        </div>
+        <ul class="list-items">
+            {% for unit in units %}
+            <li class="item">
+                <span class="checkbox">
+                    <i class="fa-solid fa-check check-icon"></i>
+                </span>
+                <span class="item-text">{{unit.unit_desc}}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div> -->
+    <div class="year-selector">
+        <div class="previous"></div>
+        <p class="current-year"></p>
+        <div class="next"></div>
+    </div>
+    <!-- <div class="document-selection drop-down-container">
+        <div class="select-btn">
+            <span class="btn-text">Выбрать документ</span>
+            <span class="arrow-down"><i class="fas fa-caret-down"></i></span>
+        </div>
+        <ul class="list-items">
+            {% for document_type in document_types %}
+            <li class="item">
+                <span class="checkbox">
+                    <i class="fa-solid fa-check check-icon"></i>
+                </span>
+                <span class="item-text">{{document_type.document_type_desc}}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div> -->
+</div>
+<div class="calendar">
+    <div class="unit-selection">
+        <ul class="list-items">
+            {% for unit in units %}
+            <li class="item">
+                <span class="checkbox">
+                    <i class="fa-solid fa-check check-icon"></i>
+                </span>
+                <span class="item-text">{{unit.unit_desc}}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="calendar-container">
+    </div>
+    <div class="document-selection">
+        <ul class="list-items">
+            {% for document_type in document_types %}
+            <li class="item">
+                <span class="checkbox">
+                    <i class="fa-solid fa-check check-icon"></i>
+                </span>
+                <span class="item-text">{{document_type.document_type_desc}}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<meta name="words" data-words='{{prepared_docs}}'>
+<script src="{{url_for('static', filename='main.js')}}"></script>
+<script src="{{url_for('calendar_bp.static', filename='calendar.js')}}"></script>
+<script src="{{url_for('calendar_bp.static', filename='modal_document.js')}}"></script>
+{% endblock %}

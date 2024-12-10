@@ -1,0 +1,206 @@
+@use '../variables' as v;
+
+.sidebar {
+    z-index: 1;
+    position: fixed;
+    top: 70px;
+    height: 100%;
+    width: 260px;
+    background-color: v.$header-menu-color;
+    padding: 15px;
+    overflow: hidden;
+
+    .menu-content {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        padding-top: 40px;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 20px;
+
+            p {
+                font-size: 24px;
+                color: white;
+            }
+
+            .left,
+            .right {
+                width: 40px;
+                height: 40px;
+                background-size: 70%;
+                background-repeat: no-repeat;
+                background-position: center;
+                border: 2px solid v.$header-menu-color;
+                border-radius: 50%;
+
+                &:hover {
+                    border: 2px solid green;
+                    transition: 0.3s;
+                    border-radius: 50%;
+                }
+            }
+
+            .left {
+                background-image: url(/static/icons/left-arrow-svgrepo-com.svg);
+            }
+
+            .right {
+                transform: rotate(180deg);
+                background-image: url(/static/icons/left-arrow-svgrepo-com.svg);
+            }
+        }
+
+        .menu-items {
+            height: calc(100% - 60px);
+            width: 100%;
+            list-style: none;
+            transition: all 0.4s ease;
+
+            .item {
+                .submenu-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    color: #fff;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    p {
+        font-size: 20px;
+        color: white;
+        text-align: center;
+    }
+
+    a {
+        font-size: 18px;
+        color: #fff;
+        text-decoration: none;
+
+        &[period='ежедневный'] {
+            color: rgb(236, 171, 171);
+        }
+
+        &[period='квартальный'] {
+            color: rgb(0, 255, 34);
+        }
+
+        &[period='годовой'] {
+            color: rgb(0, 255, 255);
+        }
+    }
+}
+
+.submenu-active .menu-items {
+    transform: translateX(-56%);
+}
+
+.menu-title {
+    color: #fff;
+    font-size: 20px;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+.item a,
+.submenu-item {
+    padding: 16px;
+    display: inline-block;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.item i {
+    font-size: 12px;
+}
+
+.item a:hover,
+.submenu-item:hover,
+.submenu .menu-title:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.submenu {
+    position: absolute;
+    // height: calc(100% - 10px);
+    width: 100%;
+    top: 0;
+    right: calc(-100% - 26px);
+    // height: calc(100% + 100vh);
+    background-color: v.$link-active-background-color;
+    display: none;
+}
+
+.show-submenu~.submenu {
+    display: block;
+}
+
+.submenu .menu-title {
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.submenu .menu-title i {
+    margin-right: 10px;
+}
+
+.navbar,
+.main {
+    left: 260px;
+    width: calc(100% - 260px);
+    transition: all 0.5s ease;
+    z-index: 1000;
+}
+
+.sidebar.close~.navbar,
+.sidebar.close~.main {
+    left: 0;
+    width: 100%;
+}
+
+.navbar {
+    position: fixed;
+    color: #fff;
+    padding: 15px 20px;
+    font-size: 25px;
+    background: #4070f4;
+    cursor: pointer;
+}
+
+.navbar #sidebar-close {
+    cursor: pointer;
+}
+
+.document-controls {
+    position: absolute;
+    padding-left: 250px;
+
+    #add {
+        display: inline-block;
+        width: 70px;
+        height: 70px;
+        margin-left: 100px;
+        border-radius: 50%;
+        background-image: url(/static/icons/add.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #009879;
+        cursor: pointer;
+    }
+}
+
+.item_container {
+    border: 2px solid white;
+    margin: 2px;
+}

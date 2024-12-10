@@ -1,0 +1,52 @@
+header {
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  background: #074561;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.4);
+}
+header .main-menu .logo {
+  display: inline-block;
+  font-size: 33px;
+  font-weight: bold;
+  line-height: 70px;
+}
+header .main-menu ul {
+  float: right;
+}
+header .main-menu ul li {
+  display: inline-block;
+  position: relative;
+}
+header .main-menu ul li a {
+  display: block;
+  padding: 0 15px;
+  line-height: 70px;
+  font-size: 22px;
+  background-color: #074561;
+}
+header .main-menu ul li ul {
+  position: absolute;
+  top: 100%;
+  border-top: 3px solid #23dbdb;
+  opacity: 0;
+  visibility: hidden;
+}
+header .main-menu ul li ul li {
+  display: list-item;
+  position: relative;
+  border: 1px solid #287ca7;
+  border-top: none;
+  z-index: 1;
+}
+header .main-menu ul li ul li a {
+  line-height: 50px;
+}
+header .main-menu ul li:hover > ul {
+  width: -moz-fit-content;
+  width: fit-content;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s linear;
+  white-space: nowrap;
+}/*# sourceMappingURL=header.css.map */

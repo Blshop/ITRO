@@ -58,8 +58,9 @@ let load_pdf = document.querySelectorAll("a[path]").forEach(link => link.addEven
 // load_pdf.addEventListener('click', getData)
 
 async function getData() {
-    const url = "/units/reports/" + this.getAttribute('path');
-    // const url = "/units/reports/2026/Aquity/сервисное_обслуживание/2024-07-18_sdfds.pdf";
+    // const url = "/units/reports/" + this.getAttribute('path');
+    // console.log(url)
+    const url = "/units/reports/2024/Aquity/сервисное_обслуживание/2024-07-18_sdfds.pdf";
     fetch(url).then(function (response) {
         console.log('HITt', response)
         return response.blob();
@@ -71,3 +72,33 @@ async function getData() {
         objectURL = URL.revokeObjectURL(myBlob);
     })
 }
+
+
+
+function strCount(obj) {
+    if (typeof obj === 'string') {
+        return 1
+    }
+    else if (obj === null || obj === undefined) { return 0 }
+    else if (Object.values(obj).length == 1) {
+        return 0
+    }
+    else {
+        let sum = 0
+        for (let value of Object.values(obj)) {
+            sum += strCount(value)
+        }
+        return sum
+    }
+
+}
+
+console.log(
+    strCount({
+        first: "1wer",
+        second: "2",
+        third: false,
+        fourth: ["anytime", 2, 3, 4],
+        fifth: null
+    })
+)

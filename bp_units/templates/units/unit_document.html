@@ -1,11 +1,7 @@
-{% extends "unit.html" %}
-{% block content %}
-<div class="controls">
-    <button data-modal-target="#modal" id="add">добавить</button>
-    <a href="{{ url_for('.print_parameters') }}" target="_blank">Распечатать</a>
-</div>
+{% extends "index.html" %}
+{% block main %}
 <div class="modal" id="modal">
-    <form id="add-form" action="{{url_for('.unit_document', path='path')}}" method="POST" enctype="multipart/form-data">
+    <form id="add-form" action="{{url_for('.unit_document', year=2024)}}" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id">
         <div class="input_box">
             <label for="document_type_desc">Тип документа</label>
@@ -43,35 +39,59 @@
     </form>
 </div>
 <div id="overlay"></div>
-<nav class="sidebar">
-    <div class="menu-content">
-        <ul class="menu-items">
-            <div class="menu-title">Документы</div>
-            {% for name, document in documents.items()%}
-            <li class="item">
-                <div class="submenu-item">
-                    <span>{{name}}</span>
-                    <i class="fa-solid fa-chevron-right"></i>
-                </div>
-                <ul class="menu-items submenu">
-                    <div class="menu-title">
-                        <i class="fa-solid fa-chevron-left"></i>
-                        {{name}}
-                    </div>
-                    {%for item in document%}
-                    <li class="item">
-                        <a href="#" path="{{item.document_path}}">{{item.document_desc}}</a>
-                    </li>
-                    {%endfor%}
-                </ul>
-            </li>
-            {%endfor%}
-        </ul>
-    </div>
-</nav>
-<div class="content-container">
 
-    <iframe src="" frameborder="0" width="1000" height="1500"></iframe>
+{% include 'units/unit.html' %}
+<div class="document-controls">
+    <button data-modal-target="#modal" id="add"></button>
+</div>
+<main>
+    <nav class="sidebar">
+        <div class="menu-content">
+            <div class="controls">
+                <a class="left" href="{{url_for('.unit_document', year=(current_year|int-1|int))}}"></a>
+                <p>{{current_year}}</p>
+                <a class="right" href="{{url_for('.unit_document', year=(current_year|int+1|int))}}"></a>
+            </div>
+            <ul class="menu-items">
+                <div class="menu-title">Документы</div>
+                {% for name, periods in documents.items() %}
+                <li class="item">
+                    <div class="submenu-item">
+                        <span>{{name}}</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <ul class="menu-items submenu">
+                        <div class="menu-title">
+                            <i class="fas fa-chevron-left"></i>
+                            {{name}}
+                        </div>
+                        {% for period, documents in periods.items() %}
+
+                        {% if documents %}
+                        <div class="item_container">
+                            <p>{{period}}</p>
+                            {% for document in documents %}
+                            <li class="item">
+                                <a href="#" path="{{document.document_path}}"
+                                    period="{{document.period.period_desc}}">{{document.creation_date}}</a>
+                            </li>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+
+                        {% endfor %}
+                    </ul>
+                </li>
+                {%endfor%}
+            </ul>
+        </div>
+    </nav>
+</main>
+
+
+<div class="content-container">
+    <iframe src="" frameborder="0" width='100%'></iframe>
 </div>
 <script src="{{url_for('static', filename='main.js')}}"></script>
 <!-- <script src="{{url_for('settings_bp.static', filename='period.js')}}"></script> -->

@@ -1,0 +1,9 @@
+<div class="sub-menu">
+    <ul>
+        <li class="unit_name"><a href="">{{session['current_unit']}}</a></li>
+        <li><a href="{{url_for('units_bp.general_info', current_unit=unit)}}">Информация</a></li>
+        <li><a href="{{url_for('units_bp.unit_parameter')}}">Параметры</a></li>
+        <li><a href="{{url_for('.unit_document', year=2024)}}">Документы</a></li>
+        <li><a href="{{url_for('units_bp.control')}}">Контроль</a></li>
+    </ul>
+</div>

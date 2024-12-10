@@ -15,3 +15,6 @@ function load_data(e) {
         document.querySelector('input[name="id"]').value = this.id
     }
 }
+
+let active_menu = document.querySelector('.side-menu a[href="' + window.location.href.slice(21) + '"]')
+active_menu.classList.add('active')

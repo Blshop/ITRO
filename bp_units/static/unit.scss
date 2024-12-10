@@ -17,20 +17,22 @@
 
 .content-container {
     margin: auto;
-    padding: 0 400px;
+    padding: 0 700px;
 
     iframe {
+        height: 750px;
+        width: 950px;
         margin: auto;
+        zoom: 150%
     }
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-
 .sidebar {
-    position: fixed;
+    position: sticky;
+    top: 70px;
     height: 100%;
     width: 260px;
-    background: #11101d;
+    background: #074561;
     padding: 15px;
     z-index: 99;
 
@@ -41,8 +43,27 @@
         margin-top: 40px;
         overflow-y: scroll;
 
+
         &::-webkit-scrollbar {
             display: none;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            p {
+                color: white;
+            }
+
+            .left,
+            .right {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 2px solid red;
+            }
         }
 
         .menu-items {
@@ -55,8 +76,21 @@
 
 
     a {
+        font-size: 22px;
         color: #fff;
         text-decoration: none;
+
+        &[period='ежедневный'] {
+            color: red;
+        }
+
+        &[period='квартальный'] {
+            color: rgb(0, 255, 34);
+        }
+
+        &[period='годовой'] {
+            color: rgb(0, 255, 255);
+        }
     }
 }
 

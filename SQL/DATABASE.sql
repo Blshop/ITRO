@@ -66,7 +66,7 @@ CREATE TABLE unit_document_check(
 
 CREATE TABLE "document"(
 	document_id serial PRIMARY KEY,
-	document_path varchar(100) UNIQUE,
+	document_path varchar(100),
 	document_desc varchar(50),
 	creation_date date,
 	valid_year int,
@@ -76,8 +76,9 @@ CREATE TABLE "document"(
 );
 
 
+SELECT * FROM "temp_document"
+SELECT * FROM "document"
 
-
-DROP TABLE "document" 
+DROP TABLE "temp_document" 
 
 

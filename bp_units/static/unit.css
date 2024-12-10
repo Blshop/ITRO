@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+@charset "UTF-8";
 .wrapper {
   position: relative;
   border: 2px solid red;
@@ -17,17 +17,21 @@
 
 .content-container {
   margin: auto;
-  padding: 0 400px;
+  padding: 0 700px;
 }
 .content-container iframe {
+  height: 750px;
+  width: 950px;
   margin: auto;
+  zoom: 150%;
 }
 
 .sidebar {
-  position: fixed;
+  position: sticky;
+  top: 70px;
   height: 100%;
   width: 260px;
-  background: #11101d;
+  background: #074561;
   padding: 15px;
   z-index: 99;
 }
@@ -41,6 +45,21 @@
 .sidebar .menu-content::-webkit-scrollbar {
   display: none;
 }
+.sidebar .menu-content .controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sidebar .menu-content .controls p {
+  color: white;
+}
+.sidebar .menu-content .controls .left,
+.sidebar .menu-content .controls .right {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid red;
+}
 .sidebar .menu-content .menu-items {
   height: 100%;
   width: 100%;
@@ -48,8 +67,18 @@
   transition: all 0.4s ease;
 }
 .sidebar a {
+  font-size: 22px;
   color: #fff;
   text-decoration: none;
+}
+.sidebar a[period=ежедневный] {
+  color: red;
+}
+.sidebar a[period=квартальный] {
+  color: rgb(0, 255, 34);
+}
+.sidebar a[period=годовой] {
+  color: rgb(0, 255, 255);
 }
 
 .submenu-active .menu-items {

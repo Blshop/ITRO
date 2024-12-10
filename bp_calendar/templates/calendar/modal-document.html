@@ -1,0 +1,38 @@
+<div class="modal-document" id="modal">
+    <form id="add-form" action="" method="POST">
+        <select name="unit_desc" id="">
+            <option value="" disabled selected>Наименование аппарата</option>
+            {% for unit in units%}
+            <option value=" {{unit.unit_desc}}" unit_id="{{unit.unit_id}}">{{unit.unit_desc}}</option>
+            {% endfor %}
+        </select>
+        <select name="document_type" id="">
+            <option value="" disabled selected>Тип документа</option>
+            {% for document_type in document_types %}
+            <option value="unit">{{document_type.document_type_desc}}</option>
+            {% endfor %}
+        </select>
+        <select name="period_desc" id="select">
+            <option value="" disabled selected>Периодичность</option>
+            {% for period in periods %}
+            <option value="{{period.period_desc}}">{{period.period_desc}}</option>
+            {% endfor %}
+        </select>
+
+        <div class="date-range">
+            <div class="input_box">
+                <label for="period">Период</label>
+                <input type="checkbox" name="" id="period">
+            </div>
+            <div class="dates">
+                <input class="active" type="date" name="start_date" id="start_date">
+                <input type="date" name="end_date" id="end_date" disabled>
+            </div>
+        </div>
+        <div class="upload-container">
+            <label for="path">загрузить файл</label>
+            <input type="file" name="path" id="path">
+        </div>
+        <input type="submit" value="Добавить" disabled>
+    </form>
+</div>
