@@ -1,0 +1,11 @@
+COPY deviation TO 'C:\projects\ITRO\SQL\data\raw_data\deviation.csv' WITH (FORMAT csv, HEADER);
+COPY document_type TO 'C:\projects\ITRO\SQL\data\raw_data\document_type.csv' WITH (FORMAT csv, HEADER);
+COPY energy_type TO 'C:\projects\ITRO\SQL\data\raw_data\energy_type.csv' WITH (FORMAT csv, HEADER);
+COPY "period" TO 'C:\projects\ITRO\SQL\data\raw_data\period.csv' WITH (FORMAT csv, HEADER);
+COPY unit_category TO 'C:\projects\ITRO\SQL\data\raw_data\unit_category.csv' WITH (FORMAT csv, HEADER);
+COPY unit_type TO 'C:\projects\ITRO\SQL\data\raw_data\unit_type.csv' WITH (FORMAT csv, HEADER);
+COPY energy TO 'C:\projects\ITRO\SQL\data\raw_data\energy.csv' WITH (FORMAT csv, HEADER);
+COPY unit TO 'C:\projects\ITRO\SQL\data\raw_data\unit.csv' WITH (FORMAT csv, HEADER);
+COPY "parameter" TO 'C:\projects\ITRO\SQL\data\raw_data\parameter.csv' WITH (FORMAT csv, HEADER);
+COPY unit_parameter TO 'C:\projects\ITRO\SQL\data\raw_data\unit_parameter.csv' WITH (FORMAT csv, HEADER);
+COPY organization TO 'C:\projects\ITRO\SQL\data\raw_data\organization.csv' WITH (FORMAT csv, HEADER);

@@ -1,0 +1,7 @@
+energy_id,energy_desc,half_life,fk_energy_type
+1,6x,0,1
+2,10x,0,1
+3,15x,0,1
+4,18x,0,1
+5,Ir-192,73.831,2
+6,Co-60,1924.061,2

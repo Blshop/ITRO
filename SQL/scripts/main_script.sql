@@ -1,0 +1,12 @@
+@include tables/deviation.SQL
+@include tables/document_type.SQL
+@include TABLES/energy_type.SQL
+@include tables/period.SQL
+@include tables/unit_category.SQL
+@include tables/unit_type.SQL
+@include tables/energy.SQL
+@include tables/parameter.SQL
+@include tables/unit.SQL
+@include tables/unit_parameter.SQL
+@include tables/organization.SQL
+@include tables/document.SQL

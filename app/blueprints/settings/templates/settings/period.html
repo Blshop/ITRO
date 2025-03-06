@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% block main %}
+
+<div class="main-container">
+    <aside>
+        {% include 'settings/includes/side-menu.html' %}
+    </aside>
+    <main upload_value="deviation">
+        <section id="tab-data">
+            <div class="table-container">
+            </div>
+        </section>
+    </main>
+</div>
+<!-- <script src="{{url_for('static', filename='main.js')}}"></script> -->
+<script type="module" src="{{url_for('settings.static', filename='period.js')}}"></script>
+{% endblock %}

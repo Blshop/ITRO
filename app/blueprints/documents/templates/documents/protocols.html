@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('documents.static',filename='protocol.css') }}">
+{% endblock %}
+{% block main %}
+<div class="content-container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                {% for period in periods %}
+                <th onclick="select_all(this)">{{period.period_desc}}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for unit in units %}
+            <tr class="unit">
+                <td>{{unit.unit_desc}}</td>
+                {% for period in periods %}
+                <td></td>
+                {% endfor %}
+            </tr>
+            {%endfor%}
+            {% for sec_unit in sec_units %}
+            <tr class="sec-unit">
+                <td>{{sec_unit.sec_unit_desc}}</td>
+                {% for period in periods %}
+                <td></td>
+                {% endfor %}
+            </tr>
+            {%endfor%}
+            {% for planning_system in planning_systems %}
+            <tr class="planning-system">
+                <td>{{planning_system.planning_system_desc}}</td>
+                {% for period in periods %}
+                <td></td>
+                {% endfor %}
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <input type="month" name="" id="">
+    <button>Подготовить</button>
+    <button class="print">Распечатать</button>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</div>
+<script src="{{url_for('documents.static', filename='protocols.js')}}"></script>
+{%endblock%}

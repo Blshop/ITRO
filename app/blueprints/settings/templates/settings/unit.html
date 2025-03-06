@@ -1,0 +1,24 @@
+{% extends "index.html" %}
+{% block main %}
+
+<div class="main-container">
+    <aside>
+        {% include 'settings/includes/side-menu.html' %}
+    </aside>
+    <main upload_value="deviation">
+        <section id="tab-data">
+            <ul class="tabs">
+                <li class="tab"><button class="energy_type">Типы энергии</button></li>
+                <li class="tab"><button class="energy">Энергии</button></li>
+                <li class="tab"><button class="unit_type">Типы аппаратв</button></li>
+                <li class="tab"><button class="unit">Аппараты</button></li>
+            </ul>
+            <div class="table-container">
+            </div>
+        </section>
+    </main>
+</div>
+
+<script type="module" src="{{url_for('settings.static', filename='unit.js')}}"></script>
+
+{% endblock %}

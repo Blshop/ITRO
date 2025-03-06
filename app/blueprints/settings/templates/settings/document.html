@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% block main %}
+
+<div class="main-container">
+    <aside>
+        {% include 'settings/includes/side-menu.html' %}
+    </aside>
+    <main upload_value="deviation">
+        <section id="tab-data">
+            <ul class="tabs">
+                <li class="tab"><button class="document_type">Типы документов</button></li>
+                <li class="tab"><button class="organization">Организации</button></li>
+                <li class="tab"><button class="unit_type">Типы аппаратв</button></li>
+                <li class="tab"><button class="unit">Аппараты</button></li>
+                <li class="tab"><button class="sec_unit">Доп аппараты</button></li>
+                <li class="tab"><button class="planning_system">Планирующие системы</button></li>
+            </ul>
+            <div class="table-container">
+            </div>
+        </section>
+    </main>
+</div>
+
+<script type="module" src="{{url_for('settings.static', filename='document.js')}}"></script>
+
+{% endblock %}

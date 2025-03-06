@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+{% block main %}
+
+<div class="main-container">
+
+    <main upload_value="deviation">
+        <section id="tab-data">
+            <div class="table-container">
+            </div>
+        </section>
+    </main>
+</div>
+<script type="module" src="{{url_for('units.static', filename='sec_unit_parameter.js')}}"></script>
+{% endblock %}

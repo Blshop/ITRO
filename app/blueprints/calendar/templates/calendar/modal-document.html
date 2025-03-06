@@ -1,0 +1,46 @@
+<div class="modal-document" id="modal">
+    <form id="add-form" action="{{url_for('calendar.upload_documents') }}" method="POST" enctype="multipart/form-data">
+        <input type="text" placeholder="документ" id="document_desc" name="document_desc">
+        <select name="unit_desc" id="unit">
+            <option value="" disabled selected>Наименование аппарата</option>
+            {% for unit in units%}
+            <option value="{{unit.unit_desc}}" unit_id="{{unit.unit_id}}">{{unit.unit_desc}}
+            </option>
+            {% endfor %}
+        </select>
+        <select name="document_type_desc" id="">
+            <option value="" disabled selected>Тип документа</option>
+            {% for document_type in document_types %}
+            <option value="{{document_type.document_type_desc}}">{{document_type.document_type_desc}}</option>
+            {% endfor %}
+        </select>
+        <select name="organization_desc" id="">
+            <option value="" disabled selected>Организация</option>
+            {% for organization in organizations %}
+            <option value="{{organization.organization_desc}}">{{organization.organization_desc}}</option>
+            {% endfor %}
+        </select>
+        <select name="period_desc" id="select">
+            <option value="" disabled selected>Периодичность</option>
+            {% for period in periods %}
+            <option value="{{period.period_desc}}">{{period.period_desc}}</option>
+            {% endfor %}
+        </select>
+
+        <div class="date-range">
+            <div class="input_box">
+                <label for="period">Период</label>
+                <input type="checkbox" name="" id="period">
+            </div>
+            <div class="dates">
+                <input class="active" type="date" name="start_date" id="start_date">
+                <input type="date" name="end_date" id="end_date" disabled>
+            </div>
+        </div>
+        <div class="upload-container">
+            <label for="path">загрузить файл</label>
+            <input type="file" name="path" id="path">
+        </div>
+        <input type="submit" value="Добавить" disabled>
+    </form>
+</div>

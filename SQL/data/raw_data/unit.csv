@@ -1,0 +1,18 @@
+unit_id,unit_desc,unit_sn,fk_unit_type,fk_unit_category
+2,Aquilion LB,1CC09Y2158,2,1
+3,Aquity,77-0334,3,1
+1,VitalBeam 1,5662,1,1
+4,Theratron Equinox 80,2011,4,1
+5,АГАТ-ВУ,58,5,1
+6,Aquilion 64,HCC12X4074,2,1
+8,Clinac iX,H295990,1,1
+9,VitalBeam 2,5663,1,1
+10,VitalBeam 3,5652,1,1
+11,microSelectron-HDR V3,10694,5,1
+7,Clinac 2300CD,294464,1,1
+13,Hitachi Aloka,F37,9,2
+14,IBU,26119,8,2
+16,Oncentra Prostate,,7,3
+17,Oncentra Masterplan,,7,3
+18,Theraplan Plus,,7,3
+19,Eclipse,,7,3

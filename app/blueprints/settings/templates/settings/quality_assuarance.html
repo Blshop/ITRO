@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block main %}
+
+<div class="main-container">
+    <aside>
+        {% include 'settings/includes/side-menu.html' %}
+    </aside>
+    <main upload_value="deviation">
+        <section id="tab-data">
+            <ul class="tabs">
+                <li class="tab"><button class="deviation">Отклонение</button></li>
+                <li class="tab"><button class="unit_category">Категория аппарата</button></li>
+                <li class="tab"><button class="main_parameter">Основные параметры</button></li>
+                <li class="tab"><button class="sec_parameter">Вторичные параметры</button></li>
+                <li class="tab"><button class="planning_parameter">Параметры планирования</button></li>
+            </ul>
+            <div class="table-container">
+            </div>
+        </section>
+    </main>
+</div>
+
+<script type="module" src="{{url_for('settings.static', filename='quality_assuarance.js')}}"></script>
+
+{% endblock %}
