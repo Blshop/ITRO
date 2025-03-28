@@ -4,8 +4,16 @@ import os
 from app.services.unit import (
     get_unit_parameter,
     add_unit_parameter,
+    set_associacion,
+    get_associacion,
 )
-from app.services.settings import get_period, get_parameter, get_unit
+from app.services.settings import (
+    get_period,
+    get_parameter,
+    get_unit,
+    get_document_type,
+    get_organization,
+)
 
 
 @units.route("/set_unit", methods=["GET", "POST"])
@@ -17,8 +25,8 @@ def set_unit():
     return redirect(url_for("units.unit_parameter", unit=unit_id))
 
 
-@units.route("/<unit>/unit_parameter", methods=["GET", "POST"])
-def unit_parameter(unit):
+@units.route("/unit_parameter", methods=["GET", "POST"])
+def unit_parameter():
     return render_template("units/unit_parameter.html")
 
 
@@ -46,13 +54,17 @@ def planning_system_parameter(unit):
     return render_template("units/planning_system_parameter.html")
 
 
-# @units.route("/print", methods=["GET", "POST"])
-# def print_parameters():
-#     unit_parameters = prepare_unit_parameters(session["current_unit"])
-#     unit = get_unit(session["current_unit"])
-#     return render_template(
-#         "units/print_daily.html", unit_parameters=unit_parameters, unit=unit
-#     )
+@units.route("/association", methods=["GET", "POST"])
+def association():
+    document_types = get_document_type()
+    periods = get_period()
+    organizations = get_organization()
+    return render_template(
+        "units/association.html",
+        document_types=document_types,
+        periods=periods,
+        organizations=organizations,
+    )
 
 
 # @units.route("/unit_document/<year>", methods=["GET", "POST"])
@@ -155,3 +167,19 @@ def load_data():
         return jsonify(get_period())
     elif table_name == "parameter":
         return jsonify(get_parameter(session["current_unit_category"]))
+
+
+@units.route("/upload_associacion", methods=["POST"])
+def upload_associacion():
+    data = request.json
+    print(data)
+    set_associacion(
+        session["current_unit"], data["document_data"], data["organization_data"]
+    )
+    return jsonify({})
+
+
+@units.route("/load_associacion", methods=["GET"])
+def load_associacion():
+    data = get_associacion(session["current_unit"])
+    return data

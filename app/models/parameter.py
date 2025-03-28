@@ -15,6 +15,14 @@ class Parameter(db.Model):
     deviation = db.relationship("Deviation", backref="parameter", lazy=True)
     unit_category = db.relationship("UnitCategory", backref="parameter", lazy=True)
 
+    def __repr__(self):
+        return (
+            f"<Parameter(parameter_id={self.parameter_id}, "
+            f"parameter_desc='{self.parameter_desc}', "
+            f"fk_deviation={self.fk_deviation}, "
+            f"fk_unit_category={self.fk_unit_category})>"
+        )
+
 
 class ParameterSchema(SQLAlchemyAutoSchema):
     class Meta:

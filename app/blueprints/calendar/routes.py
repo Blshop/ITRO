@@ -8,6 +8,7 @@ from flask import (
     json,
     send_from_directory,
     current_app,
+    jsonify,
 )
 from . import calendar
 from app.services.settings import (
@@ -16,7 +17,8 @@ from app.services.settings import (
     get_period,
     get_organization,
 )
-from app.services.unit import add_document, get_document
+from app.services.unit import add_document, get_document, delete_document
+from app.services.calendar import get_unit_doc, get_org_doc, alerts
 
 
 @calendar.route("/calendar", methods={"GET", "POST"})
@@ -72,3 +74,32 @@ def download_file(filename):
     directory = os.path.dirname(absolute_path)
     filename = os.path.basename(absolute_path)
     return send_from_directory(directory, filename)
+
+
+@calendar.route("/delete_document/<path:filename>", methods={"GET"})
+def delete_file(filename):
+    full_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+    os.remove(full_path)
+    delete_document(filename)
+    return "send_from_directory(directory, filename)"
+
+
+@calendar.route("/load_document", methods=["GET"])
+def load_document():
+    unit_desc = request.args["unit_desc"]
+    print(get_unit_doc(unit_desc))
+    return get_unit_doc(unit_desc)
+
+
+@calendar.route("/load_organizations", methods=["GET"])
+def load_organization():
+    organization_doc = request.args["organization_desc"]
+    unit_desc = request.args["unit_desc"]
+    print("sdfsdf")
+    print(get_org_doc(organization_doc, unit_desc))
+    return get_org_doc(organization_doc, unit_desc)
+
+
+@calendar.route("/load_alerts", methods=["GET"])
+def load_alerts():
+    return jsonify(alerts())

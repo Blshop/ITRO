@@ -22,6 +22,19 @@ class Document(db.Model):
     period = db.relationship("Period", backref="document", lazy=True)
     organization = db.relationship("Organization", backref="document", lazy=True)
 
+    def __repr__(self):
+        return (
+            f"<Document(document_id={self.document_id}, "
+            f"document_path='{self.document_path}', "
+            f"document_desc='{self.document_desc}', "
+            f"date_creation={self.date_creation}, "
+            f"year_creation={self.year_creation}, "
+            f"fk_unit={self.fk_unit}, "
+            f"fk_document_type={self.fk_document_type}, "
+            f"fk_period={self.fk_period}, "
+            f"fk_organization={self.fk_organization})>"
+        )
+
 
 class DocumentSchema(SQLAlchemyAutoSchema):
     class Meta:

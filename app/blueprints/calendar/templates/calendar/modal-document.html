@@ -10,21 +10,12 @@
         </select>
         <select name="document_type_desc" id="">
             <option value="" disabled selected>Тип документа</option>
-            {% for document_type in document_types %}
-            <option value="{{document_type.document_type_desc}}">{{document_type.document_type_desc}}</option>
-            {% endfor %}
         </select>
         <select name="organization_desc" id="">
             <option value="" disabled selected>Организация</option>
-            {% for organization in organizations %}
-            <option value="{{organization.organization_desc}}">{{organization.organization_desc}}</option>
-            {% endfor %}
         </select>
         <select name="period_desc" id="select">
             <option value="" disabled selected>Периодичность</option>
-            {% for period in periods %}
-            <option value="{{period.period_desc}}">{{period.period_desc}}</option>
-            {% endfor %}
         </select>
 
         <div class="date-range">

@@ -11,3 +11,8 @@ from .unit import Unit, UnitSchema
 from .unit_parameter import UnitParameter, UnitParameterSchema
 from .organization import Organization, OrganizationSchema
 from .document import Document, DocumentSchema
+from .document_type_period import DocumentTypePeriod, DocumentTypePeriodSchema
+from .document_type_organization import (
+    DocumentTypeOrganization,
+    DocumentTypeOrganizationSchema,
+)

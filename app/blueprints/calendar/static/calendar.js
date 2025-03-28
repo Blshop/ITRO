@@ -165,6 +165,20 @@ async function populate_calendar() {
             e.stopPropagation()
             load_document(e.target.getAttribute('path-to-file'))
         })
+        toolP.addEventListener('contextmenu', (e) => {
+            e.stopPropagation()
+            event.preventDefault()
+            const contextMenu = document.getElementById('context-menu')
+            contextMenu.style.display = 'block';
+            let path = e.target.getAttribute('path-to-file')
+            contextMenu.style.left = `${event.clientX}px`;
+            contextMenu.style.top = `${event.clientY}px`;
+            let deleteBtn = document.querySelector('.context-menu__item')
+            deleteBtn.addEventListener('click', () => {
+                delete_document(path)
+            })
+
+        })
 
         let event_count = day.querySelector('span.event-count')
         console.log(event_count)
@@ -244,14 +258,46 @@ async function getData(path) {
     console.log(path)
     const url = `/calendar/load_document/${path}`;
     console.log(url)
-    // const url = "/units/reports/2024/Clinac_iX/сервисное_обслуживание/2024-08-26_.pdf";
-    fetch(url).then(function (response) {
+    fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/pdf' } }).then(function (response) {
         return response.blob();
     }).then(function (myBlob) {
         var objectURL = URL.createObjectURL(myBlob);
         document.querySelector('iframe').src = '';
         document.querySelector('iframe').src = objectURL;
-        objectURL = URL.revokeObjectURL(myBlob);
+        document.querySelector('iframe').onload = () => URL.revokeObjectURL(objectURL);
+        // objectURL = URL.revokeObjectURL(myBlob);
+    })
+}
+
+// async function getData(path) {
+//     const url = `/calendar/load_document/${path}`;
+//     const loadingTask = pdfjsLib.getDocument(url);
+//     loadingTask.promise.then(pdfDoc => {
+//         console.log(`PDF loaded with ${pdfDoc.numPages} pages.`);
+//         // Render the first page
+//         pdfDoc.getPage(1).then(page => {
+//             const viewport = page.getViewport({ scale: 1.5 });
+//             const canvas = document.getElementById('pdf-canvas');
+//             const ctx = canvas.getContext('2d');
+
+//             canvas.width = viewport.width;
+//             canvas.height = viewport.height;
+
+//             const renderContext = {
+//                 canvasContext: ctx,
+//                 viewport: viewport
+//             };
+//             page.render(renderContext);
+//         });
+//     });
+// }
+
+
+async function delete_document(path) {
+    const url = `/calendar/delete_document/${path}`;
+    console.log(url)
+    fetch(url).then(function (response) {
+        return '';
     })
 }
 
@@ -262,8 +308,8 @@ function closeModal(modal) {
     overlay.classList.remove('active')
 }
 
-closeModal()
-let modal = document.querySelector('.modal-pdf-viewer')
+// closeModal()
+// let modal = document.querySelector('.modal-pdf-viewer')
 
 
 // async function getData() {
@@ -408,4 +454,88 @@ function loadState() {
     })
     console.log(all_units)
     console.log(active_units)
+}
+
+
+document.addEventListener('click', hideContextMenu);
+
+function hideContextMenu() {
+    const contextMenu = document.getElementById('context-menu')
+    contextMenu.style.display = 'none';
+}
+
+
+messages = document.querySelector('.messages')
+messages.addEventListener('click', () => {
+    const modal = document.querySelector('.modal-error')
+    console.log(modal)
+    openModal(modal)
+    getErrors()
+})
+overlay.addEventListener('click', () => {
+    const modal = document.querySelector('.modal-errors')
+    closeModal(modal)
+})
+
+async function getErrors() {
+    const url = `/calendar/load_alerts`;
+    fetch(url, { method: 'GET' })
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json(); // Use .json() to parse JSON
+        })
+        .then(function (data) {
+            console.log(data); // Log the parsed JSON data
+            create_errors(data)
+        })
+        .catch(function (error) {
+            console.error('Error fetching alerts:', error); // Handle errors
+        });
+}
+
+function create_errors(data) {
+    const modal = document.querySelector('.modal-error');
+    modal.innerHTML = ''; // Clear existing content
+
+    // Create a table element
+    const table = document.createElement('table');
+    table.style.borderCollapse = 'collapse';
+    table.style.width = '100%';
+
+    // Create a header row (optional, based on your error structure)
+    const headerRow = document.createElement('tr');
+    const headers = ['Аппарат', 'Документ', 'Период']; // Customize headers
+    headers.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        th.style.border = '1px solid black'; // Add border for visibility
+        th.style.padding = '8px';
+        th.style.textAlign = 'center';
+        headerRow.appendChild(th);
+    });
+    table.appendChild(headerRow);
+
+    // Populate table rows with error data
+    for (let error of data) {
+        const row = document.createElement('tr');
+
+        error.slice(0, -1).forEach(cellData => {
+            const td = document.createElement('td');
+            td.textContent = cellData;
+            td.style.border = '1px solid black'; // Add border for visibility
+            td.style.padding = '8px';
+            td.style.textAlign = 'center';
+            row.appendChild(td);
+        });
+        const lastColumn = error[error.length - 1];
+        if (lastColumn === 'waiting') { row.style.background = 'lightgreen' }
+        if (lastColumn === 'warning') { row.style.background = 'lightyellow' }
+        if (lastColumn === 'error') { row.style.background = 'red' }
+        table.appendChild(row);
+    }
+
+    // Append the table to the modal
+    modal.appendChild(table);
 }

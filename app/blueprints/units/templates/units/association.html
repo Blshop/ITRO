@@ -1,0 +1,61 @@
+{% extends "index.html" %}
+{% block main %}
+<h1>{{session['current_unit']}}</h1>
+<div class="main-container">
+    <aside>
+        {% include 'units/includes/side-menu.html' %}
+    </aside>
+    <main>
+        <section id="tab-data">
+            <ul class="tabs">
+                <li class="tab"><button class="document_type_btn">Типы документов</button></li>
+                <li class="tab"><button class="organization_btn">Организации</button></li>
+            </ul>
+        </section>
+        <section class="tables">
+            <table class="document_type active">
+                <thead>
+                    <tr>
+                        <th></th>
+                        {% for period in periods %}
+                        <th>{{period.period_desc}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for document_type in document_types %}
+                    <tr class="unit">
+                        <td>{{document_type.document_type_desc}}</td>
+                        {% for period in periods %}
+                        <td></td>
+                        {% endfor %}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <table class="organization">
+                <thead>
+                    <tr>
+                        <th></th>
+                        {% for organization in organizations %}
+                        <th>{{organization.organization_desc}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for document_type in document_types %}
+                    <tr class="unit">
+                        <td>{{document_type.document_type_desc}}</td>
+                        {% for organization in organizations %}
+                        <td></td>
+                        {% endfor %}
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+            <button class="save">Сохранить</button>
+        </section>
+    </main>
+</div>
+<script type="module" src="{{url_for('units.static', filename='association.js')}}"></script>
+{% endblock %}

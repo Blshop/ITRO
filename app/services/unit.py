@@ -153,8 +153,18 @@ def add_document(
     if not os.path.exists("all_documents/" + path):
         os.makedirs("all_documents/" + path)
     file.filename = document_name
-    file.save(os.path.join("all_documents/" + path, document_name))
-    print(unit)
+    while True:
+        if os.path.exists("all_documents/" + path + file.filename):
+            file.filename = (
+                os.path.splitext(
+                    os.path.basename("all_documents/" + path + file.filename)
+                )[0]
+                + "(1)"
+                + ".pdf"
+            )
+        else:
+            break
+    file.save(os.path.join("all_documents/" + path, file.filename))
     document = Document(
         unit=unit,
         document_type=document_type,
@@ -183,3 +193,90 @@ def get_document(unit, document_type, year):
         .all()
     )
     return DocumentSchema(many=True).dump(documents)
+
+
+def delete_document(path):
+    document = Document.query.filter_by(document_path=path).first()
+    db.session.delete(document)
+    db.session.commit()
+
+
+def set_associacion(unit_id, document_data, organization_data):
+    all_docs = (
+        DocumentTypePeriod.query.join(Unit, Unit.unit_id == DocumentTypePeriod.fk_unit)
+        .filter_by(unit_id=unit_id)
+        .all()
+    )
+    for doc in all_docs:
+        if doc.document_type.document_type_desc in document_data.keys():
+            if (
+                doc.period.period_desc
+                in document_data[doc.document_type.document_type_desc]
+            ):
+                document_data[doc.document_type.document_type_desc].remove(
+                    doc.period.period_desc
+                )
+            else:
+                db.session.delete(doc)
+                db.session.commit()
+
+    for doc, periods in document_data.items():
+        for period in periods:
+            if period:
+                data = {"unit": unit_id, "document_type": doc, "period": period}
+                print(data)
+                new_doc = DocumentTypePeriodSchema(session=db.session).load(data)
+                db.session.add(new_doc)
+            db.session.commit()
+
+    all_orgs = (
+        DocumentTypeOrganization.query.join(
+            Unit, Unit.unit_id == DocumentTypeOrganization.fk_unit
+        )
+        .filter_by(unit_id=unit_id)
+        .all()
+    )
+    for org in all_orgs:
+        if org.document_type.document_type_desc in organization_data.keys():
+            if (
+                org.organization.organization_desc
+                in organization_data[org.document_type.document_type_desc]
+            ):
+                organization_data[org.document_type.document_type_desc].remove(
+                    org.organization.organization_desc
+                )
+            else:
+                db.session.delete(org)
+                db.session.commit()
+
+    for doc, organizations in organization_data.items():
+        for organization in organizations:
+            if organization:
+                data = {
+                    "unit": unit_id,
+                    "document_type": doc,
+                    "organization": organization,
+                }
+                print(data)
+                new_org = DocumentTypeOrganizationSchema(session=db.session).load(data)
+                db.session.add(new_org)
+            db.session.commit()
+
+
+def get_associacion(unit_id):
+    all_docs = (
+        DocumentTypePeriod.query.join(Unit, Unit.unit_id == DocumentTypePeriod.fk_unit)
+        .filter_by(unit_id=unit_id)
+        .all()
+    )
+    all_orgs = (
+        DocumentTypeOrganization.query.join(
+            Unit, Unit.unit_id == DocumentTypeOrganization.fk_unit
+        )
+        .filter_by(unit_id=unit_id)
+        .all()
+    )
+    return {
+        "documents": DocumentTypePeriodSchema(many=True).dump(all_docs),
+        "organizations": DocumentTypeOrganizationSchema(many=True).dump(all_orgs),
+    }

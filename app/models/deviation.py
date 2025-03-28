@@ -7,6 +7,9 @@ class Deviation(db.Model):
     deviation_id = db.Column(db.Integer, primary_key=True)
     deviation_desc = db.Column(db.String(30), unique=True, nullable=False)
 
+    def __repr__(self):
+        return f"<Deviation(deviation_id={self.deviation_id}, deviation_desc='{self.deviation_desc}')>"
+
 
 class DeviationSchema(SQLAlchemyAutoSchema):
     class Meta:

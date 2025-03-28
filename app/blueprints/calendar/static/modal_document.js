@@ -137,3 +137,129 @@ function activate_add() {
         document.querySelector('.modal-document input[type="submit"]').disabled = true
     }
 }
+
+unit_desc.addEventListener('change', async function () {
+    while (document_type.options.length > 1) {
+        document_type.remove(1);
+    }
+    const selectedValue = unit_desc.value;
+    if (selectedValue) {
+        try {
+            const response = await fetch(`/calendar/load_document?unit_desc=${selectedValue}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // Update the result div with the fetched data
+            console.log(data)
+            if (data.length > 1) {
+                data.forEach(option => {
+                    if (!optionAlreadyExists(document_type, option.document_type)) {
+                        const newOption = document.createElement('option');
+                        newOption.value = option.document_type;
+                        newOption.textContent = option.document_type;
+                        document_type.appendChild(newOption);
+                        document_type.classList.remove('active')
+                    }
+
+                });
+            }
+            else {
+                const option = data[0]
+                const newOption = document.createElement('option');
+                newOption.value = option.document_type;
+                newOption.textContent = option.document_type;
+                document_type.appendChild(newOption);
+                newOption.selected = true
+                document_type.classList.add('active')
+                const event = new Event('change', {
+                    bubbles: true,
+                    cancelable: true
+                });
+                document_type.dispatchEvent(event);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+});
+
+document_type.addEventListener('change', async function () {
+    while (organization_type.options.length > 1) {
+        organization_type.remove(1);
+    }
+    while (period_desc.options.length > 1) {
+        period_desc.remove(1);
+    }
+    const selectedValue = document_type.value;
+    if (selectedValue) {
+        try {
+            const response = await fetch(`/calendar/load_organizations?organization_desc=${selectedValue}&unit_desc=${unit_desc.value}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            // Update the result div with the fetched data
+            console.log(data)
+            if (data.organizations.length > 1) {
+                data.organizations.forEach(option => {
+                    const newOption = document.createElement('option');
+                    newOption.value = option.organization;
+                    newOption.textContent = option.organization;
+                    organization_type.appendChild(newOption);
+                    organization_type.classList.remove('active')
+                });
+            }
+            else {
+                const option = data.organizations[0]
+                const newOption = document.createElement('option');
+                newOption.value = option.organization;
+                newOption.textContent = option.organization;
+                organization_type.appendChild(newOption);
+                newOption.selected = true
+                organization_type.classList.add('active')
+                const event = new Event('change', {
+                    bubbles: true,
+                    cancelable: true
+                });
+                organization_type.dispatchEvent(event);
+            }
+            if (data.periods.length > 1) {
+                data.periods.forEach(option => {
+                    const newOption = document.createElement('option');
+                    newOption.value = option.period;
+                    newOption.textContent = option.period;
+                    period_desc.appendChild(newOption);
+                    period_desc.classList.remove('active')
+                });
+            }
+            else {
+                const option = data.periods[0]
+                const newOption = document.createElement('option');
+                newOption.value = option.period;
+                newOption.textContent = option.period;
+                period_desc.appendChild(newOption);
+                newOption.selected = true
+                period_desc.classList.add('active')
+                const event = new Event('change', {
+                    bubbles: true,
+                    cancelable: true
+                });
+                period_desc.dispatchEvent(event);
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+});
+
+
+function optionAlreadyExists(selectElement, value) {
+    // Loop through all the options in the <select> element
+    for (let option of selectElement.options) {
+        if (option.value === value) {
+            return true; // Option already exists
+        }
+    }
+    return false; // Option does not exist
+}

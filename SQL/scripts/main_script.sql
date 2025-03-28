@@ -10,3 +10,5 @@
 @include tables/unit_parameter.SQL
 @include tables/organization.SQL
 @include tables/document.SQL
+@include tables/document_type_organization.SQL
+@include tables/document_type_period.SQL

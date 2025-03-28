@@ -16,6 +16,15 @@ class Unit(db.Model):
     unit_type = db.relationship("UnitType", backref="Unit", lazy=True)
     unit_category = db.relationship("UnitCategory", backref="Unit", lazy=True)
 
+    def __repr__(self):
+        return (
+            f"<Unit(unit_id={self.unit_id}, "
+            f"unit_desc='{self.unit_desc}', "
+            f"unit_sn='{self.unit_sn}', "
+            f"fk_unit_type={self.fk_unit_type}, "
+            f"fk_unit_category={self.fk_unit_category})>"
+        )
+
 
 class UnitSchema(SQLAlchemyAutoSchema):
     class Meta:

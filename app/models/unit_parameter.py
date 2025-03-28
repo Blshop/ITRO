@@ -16,6 +16,14 @@ class UnitParameter(db.Model):
     period = db.relationship("Period", backref="unit_parameter", lazy=True)
     unit = db.relationship("Unit", backref="unit_parameter", lazy=True)
 
+    def __repr__(self):
+        return (
+            f"<UnitParameter(unit_parameter_id={self.unit_parameter_id}, "
+            f"fk_unit={self.fk_unit}, "
+            f"fk_parameter={self.fk_parameter}, "
+            f"fk_period={self.fk_period})>"
+        )
+
 
 class UnitParameterSchema(SQLAlchemyAutoSchema):
     class Meta:

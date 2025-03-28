@@ -1,4 +1,5 @@
 import { Table } from '/static/js/shared/table.js'
+import { url } from './settings.js'
 
 const tableData = {
     'period': {
@@ -20,5 +21,4 @@ function createTable(tableName) {
     else new Table(url, tableName, tableData[tableName]['dataInfo'], tableData[tableName]['tableHead'])
 }
 
-const url = '/settings/';
 createTable('period')

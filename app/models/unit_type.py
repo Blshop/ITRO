@@ -9,6 +9,13 @@ class UnitType(db.Model):
     fk_energy_type = db.Column(db.Integer, db.ForeignKey("energy_type.energy_type_id"))
     energy_type = db.relationship("EnergyType", backref="unit_type", lazy=True)
 
+    def __repr__(self):
+        return (
+            f"<UnitType(unit_type_id={self.unit_type_id}, "
+            f"unit_type_desc='{self.unit_type_desc}', "
+            f"fk_energy_type={self.fk_energy_type})>"
+        )
+
 
 class UnitTypeSchema(SQLAlchemyAutoSchema):
     class Meta:

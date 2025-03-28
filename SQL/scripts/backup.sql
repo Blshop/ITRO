@@ -9,3 +9,6 @@ COPY unit TO 'C:\projects\ITRO\SQL\data\raw_data\unit.csv' WITH (FORMAT csv, HEA
 COPY "parameter" TO 'C:\projects\ITRO\SQL\data\raw_data\parameter.csv' WITH (FORMAT csv, HEADER);
 COPY unit_parameter TO 'C:\projects\ITRO\SQL\data\raw_data\unit_parameter.csv' WITH (FORMAT csv, HEADER);
 COPY organization TO 'C:\projects\ITRO\SQL\data\raw_data\organization.csv' WITH (FORMAT csv, HEADER);
+COPY "document" TO 'C:\projects\ITRO\SQL\data\raw_data\document.csv' WITH (FORMAT csv, HEADER);
+COPY "document_type_organization" TO 'C:\projects\ITRO\SQL\data\raw_data\document_type_organization.csv' WITH (FORMAT csv, HEADER);
+COPY "document_type_period" TO 'C:\projects\ITRO\SQL\data\raw_data\document_type_period.csv' WITH (FORMAT csv, HEADER);

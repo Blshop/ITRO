@@ -1,14 +1,9 @@
 import { Table } from '/static/js/shared/table.js'
+import { url } from './settings.js'
 document.querySelector('.energy_type').addEventListener('click', () => { createTable('energy_type') })
 document.querySelector('.energy').addEventListener('click', () => { createTable('energy') })
 document.querySelector('.unit_type').addEventListener('click', () => { createTable('unit_type') })
 document.querySelector('.unit').addEventListener('click', () => { createTable('unit') })
-
-
-let active_menu = document.querySelector('.side-menu a[href="' + window.location.pathname + '"]');
-if (active_menu) {
-    active_menu.classList.add('active');
-}
 
 const tableData = {
     'energy_type': {
@@ -56,5 +51,3 @@ function createTable(tableName) {
     }
     else new Table(url, tableName, tableData[tableName]['dataInfo'], tableData[tableName]['tableHead'])
 }
-
-const url = '/settings/';

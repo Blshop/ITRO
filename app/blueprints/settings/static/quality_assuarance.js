@@ -1,15 +1,10 @@
 import { Table } from '/static/js/shared/table.js'
+import { url } from './settings.js'
 document.querySelector('.deviation').addEventListener('click', () => { createTable('deviation') })
 document.querySelector('.unit_category').addEventListener('click', () => { createTable('unit_category') })
 document.querySelector('.main_parameter').addEventListener('click', () => { createTable('parameter', 'основные') })
 document.querySelector('.sec_parameter').addEventListener('click', () => { createTable('parameter', 'вторичные') })
 document.querySelector('.planning_parameter').addEventListener('click', () => { createTable('parameter', 'планирование') })
-
-
-let active_menu = document.querySelector('.side-menu a[href="' + window.location.pathname + '"]');
-if (active_menu) {
-    active_menu.classList.add('active');
-}
 
 const tableData = {
     'deviation': {
@@ -45,5 +40,3 @@ function createTable(tableName, filter = '') {
     }
     else new Table(url, tableName, tableData[tableName]['dataInfo'], tableData[tableName]['tableHead'], filter)
 }
-
-const url = '/settings/';

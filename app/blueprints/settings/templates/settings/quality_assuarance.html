@@ -5,21 +5,32 @@
     <aside>
         {% include 'settings/includes/side-menu.html' %}
     </aside>
-    <main upload_value="deviation">
+    <main>
         <section id="tab-data">
             <ul class="tabs">
-                <li class="tab"><button class="deviation">Отклонение</button></li>
-                <li class="tab"><button class="unit_category">Категория аппарата</button></li>
-                <li class="tab"><button class="main_parameter">Основные параметры</button></li>
-                <li class="tab"><button class="sec_parameter">Вторичные параметры</button></li>
-                <li class="tab"><button class="planning_parameter">Параметры планирования</button></li>
+                <li class="tab deviation">
+                    <p>Отклонение </p>
+                </li>
+                <li class="tab unit_category">
+                    <p>Категория аппарата </p>
+                </li>
+                <li class="tab main_parameter">
+                    <p>Основные параметры </p>
+                </li>
+                <li class="tab sec_parameter">
+                    <p>Вторичные параметры</p>
+                </li>
+                <li class="tab planning_parameter">
+                    <p>Параметры планирования</p>
+                </li>
             </ul>
-            <div class="table-container">
+            <div class="data-container">
+                <div class="table-container"></div>
             </div>
-        </section>
-    </main>
+
 </div>
-
+</section>
+</main>
+</div>
 <script type="module" src="{{url_for('settings.static', filename='quality_assuarance.js')}}"></script>
-
 {% endblock %}

@@ -64,7 +64,20 @@ DELIMITER ','
 CSV HEADER;
 SELECT setval(pg_get_serial_sequence('organization', 'organization_id'), (SELECT MAX(organization_id) FROM "organization") + 1);
 
+COPY "document"(document_id, document_path,document_desc,date_creation,year_creation,fk_unit,fk_document_type,fk_period,fk_organization)
+FROM 'C:\projects\ITRO\SQL\data\raw_data\document.csv'
+DELIMITER ','
+CSV HEADER;
+SELECT setval(pg_get_serial_sequence('document', 'document_id'), (SELECT MAX(document_id) FROM "document") + 1);
 
+COPY "document_type_organization"(document_type_organization_id, fk_unit,fk_document_type,fk_organization)
+FROM 'C:\projects\ITRO\SQL\data\raw_data\document_type_organization.csv'
+DELIMITER ','
+CSV HEADER;
+SELECT setval(pg_get_serial_sequence('document_type_organization', 'document_type_organization_id'), (SELECT MAX(document_type_organization_id) FROM "document_type_organization") + 1);
 
-
-
+COPY "document_type_period"(document_type_period_id, fk_unit,fk_document_type,fk_period)
+FROM 'C:\projects\ITRO\SQL\data\raw_data\document_type_period.csv'
+DELIMITER ','
+CSV HEADER;
+SELECT setval(pg_get_serial_sequence('document_type_period', 'document_type_period_id'), (SELECT MAX(document_type_period_id) FROM "document_type_period") + 1);

@@ -2,7 +2,9 @@
 {% block main %}
 <h1>{{session['current_unit']}}</h1>
 <div class="main-container">
-
+    <aside>
+        {% include 'units/includes/side-menu.html' %}
+    </aside>
     <main upload_value="deviation">
         <section id="tab-data">
             <div class="table-container">
